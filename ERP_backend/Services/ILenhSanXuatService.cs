@@ -1,0 +1,14 @@
+﻿using ERP_backend.DTOs;
+using ERP_backend.Models;
+
+namespace ERP_backend.Services
+{
+	public interface ILenhSanXuatService
+	{
+	Task<IEnumerable<LenhSanXuatDto>> GetAll();
+		Task<LenhSanXuatDto> GetById(Guid id);
+		Task<LenhSanXuatDto> Update(LenhSanXuatDto input);
+		Task<LenhSanXuatDto> Add(LenhSanXuatDto input);
+		Task<LenhSanXuatDto> Delete(LenhSanXuatDto input);
+	}
+}

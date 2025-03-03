@@ -7,7 +7,7 @@ public partial class KiemTraChatLuong
 {
     public Guid MaKiemTra { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
     public DateTime NgayKiemTra { get; set; }
 

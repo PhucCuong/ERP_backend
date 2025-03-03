@@ -7,7 +7,7 @@ public partial class NhapKho
 {
     public Guid MaNhapKho { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
     public decimal SoLuong { get; set; }
 

@@ -5,7 +5,7 @@ namespace ERP_backend.Models;
 
 public partial class ChucVu
 {
-    public int MaChucVu { get; set; }
+    public Guid MaChucVu { get; set; }
 
     public string TenChucVu { get; set; } = null!;
 

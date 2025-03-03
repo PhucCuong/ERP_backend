@@ -5,7 +5,7 @@ namespace ERP_backend.Models;
 
 public partial class NguyenVatLieu
 {
-    public int MaNguyenVatLieu { get; set; }
+    public Guid MaNguyenVatLieu { get; set; }
 
     public string TenNguyenVatLieu { get; set; } = null!;
 
@@ -24,6 +24,8 @@ public partial class NguyenVatLieu
     public string? TrangThai { get; set; }
 
     public virtual ICollection<DinhMucNguyenVatLieu> DinhMucNguyenVatLieus { get; set; } = new List<DinhMucNguyenVatLieu>();
+
+    public virtual ICollection<TonKho> TonKhos { get; set; } = new List<TonKho>();
 
     public virtual ICollection<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieu>();
 }

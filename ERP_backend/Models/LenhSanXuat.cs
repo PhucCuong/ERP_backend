@@ -11,7 +11,7 @@ public partial class LenhSanXuat
 
     public Guid MaQuyTrinh { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
     public decimal SoLuong { get; set; }
 
@@ -23,9 +23,11 @@ public partial class LenhSanXuat
 
     public string? NguoiChiuTrachNhiem { get; set; }
 
-    public virtual ICollection<ChiPhiSanXuat> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuat>();
+    public Guid MaDinhMuc { get; set; }
 
-    public virtual ICollection<LenhLamViec> LenhLamViecs { get; set; } = new List<LenhLamViec>();
+    public string KhuVucSanXuat { get; set; } = null!;
+
+    public virtual ICollection<ChiPhiSanXuat> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuat>();
 
     public virtual KeHoachSanXuat MaKeHoachNavigation { get; set; } = null!;
 

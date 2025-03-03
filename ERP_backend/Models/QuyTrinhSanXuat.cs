@@ -13,6 +13,8 @@ public partial class QuyTrinhSanXuat
 
     public string? TrangThai { get; set; }
 
+    public Guid MaHoatDong { get; set; }
+
     public virtual ICollection<ChiTietHoatDongSanXuat> ChiTietHoatDongSanXuats { get; set; } = new List<ChiTietHoatDongSanXuat>();
 
     public virtual ICollection<LenhSanXuat> LenhSanXuats { get; set; } = new List<LenhSanXuat>();

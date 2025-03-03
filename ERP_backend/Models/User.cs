@@ -17,13 +17,11 @@ public partial class User
 
     public string? SoDienThoai { get; set; }
 
-    public string VaiTro { get; set; } = null!;
-
     public DateTime? NgayTao { get; set; }
 
     public DateTime? NgayChinhSua { get; set; }
 
-    public int? MaChucVu { get; set; }
+    public Guid? MaChucVu { get; set; }
 
     public virtual ChucVu? MaChucVuNavigation { get; set; }
 }

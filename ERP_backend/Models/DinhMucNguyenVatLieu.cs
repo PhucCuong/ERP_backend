@@ -7,9 +7,9 @@ public partial class DinhMucNguyenVatLieu
 {
     public Guid MaDinhMuc { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
-    public int MaNguyenVatLieu { get; set; }
+    public Guid MaNguyenVatLieu { get; set; }
 
     public decimal SoLuong { get; set; }
 

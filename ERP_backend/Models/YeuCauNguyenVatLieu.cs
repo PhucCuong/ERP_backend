@@ -9,11 +9,11 @@ public partial class YeuCauNguyenVatLieu
 
     public Guid MaKeHoach { get; set; }
 
-    public int MaNguyenVatLieu { get; set; }
+    public Guid MaNguyenVatLieu { get; set; }
 
     public decimal SoLuongCanThiet { get; set; }
 
-    public int? MaNhaCungCap { get; set; }
+    public Guid MaNhaCungCap { get; set; }
 
     public DateTime? NgayGiaoHangDuKien { get; set; }
 

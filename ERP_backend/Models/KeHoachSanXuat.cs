@@ -7,7 +7,7 @@ public partial class KeHoachSanXuat
 {
     public Guid MaKeHoach { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
     public Guid MaNhaMay { get; set; }
 

@@ -15,7 +15,7 @@ public partial class ChiTietHoatDongSanXuat
 
     public int ThuTu { get; set; }
 
-    public decimal? SoLuongCho { get; set; }
+    public decimal? SoLuongChoXuLy { get; set; }
 
     public string LoaiTinhThoiGian { get; set; } = null!;
 

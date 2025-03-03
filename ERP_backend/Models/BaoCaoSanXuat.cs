@@ -9,7 +9,7 @@ public partial class BaoCaoSanXuat
 
     public Guid MaKeHoach { get; set; }
 
-    public int MaSanPham { get; set; }
+    public Guid MaSanPham { get; set; }
 
     public string TenSanPham { get; set; } = null!;
 
