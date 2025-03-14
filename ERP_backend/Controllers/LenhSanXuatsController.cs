@@ -10,6 +10,8 @@ using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
 
+
+
 namespace ERP_backend.Controllers
 {
 	[Route("api/[controller]")]
@@ -99,10 +101,10 @@ namespace ERP_backend.Controllers
 
 			return NoContent();
 		}
-	}
+    }
 
-	//private bool LenhSanXuatExists(Guid id)
-	//{
-	//    return _context.LenhSanXuats.Any(e => e.MaDinhMuc == id);
-	//}
+    //private bool LenhSanXuatExists(Guid id)
+    //{
+    //    return _context.LenhSanXuats.Any(e => e.MaDinhMuc == id);
+    //}
 }

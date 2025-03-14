@@ -10,5 +10,5 @@ namespace ERP_backend.Services
 		Task<LenhSanXuatDto> Update(LenhSanXuatDto input);
 		Task<LenhSanXuatDto> Add(LenhSanXuatDto input);
 		Task<LenhSanXuatDto> Delete(LenhSanXuatDto input);
-	}
+    }
 }

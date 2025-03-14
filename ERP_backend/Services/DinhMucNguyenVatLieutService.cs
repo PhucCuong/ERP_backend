@@ -19,14 +19,20 @@ namespace ERP_backend.Services
 			return ConvertDinhMucNguyenVatLieuToDto(result);
 		}
 
-		public async Task<DinhMucNguyenVatLieuDto> Delete(DinhMucNguyenVatLieuDto input)
-		{
-			var convertData = ConvertDtoToDinhMucNguyenVatLieu(input);
-			var result = await _dinhMucNguyenVatLieuRepository.Delete(convertData);
-			return ConvertDinhMucNguyenVatLieuToDto(result);
-		}
+        public async Task<DinhMucNguyenVatLieuDto?> Delete(DinhMucNguyenVatLieuDto input)
+        {
+            var existingDinhMuc = await _dinhMucNguyenVatLieuRepository.GetById(input.MaDinhMuc);
 
-		public async Task<IEnumerable<DinhMucNguyenVatLieuDto>> GetAll()
+            if (existingDinhMuc == null)
+            {
+                return null; // Hoặc throw NotFoundException
+            }
+
+            var result = await _dinhMucNguyenVatLieuRepository.Delete(existingDinhMuc);
+            return ConvertDinhMucNguyenVatLieuToDto(result);
+        }
+
+        public async Task<IEnumerable<DinhMucNguyenVatLieuDto>> GetAll()
 		{
 			var result = await _dinhMucNguyenVatLieuRepository.GetAll();
 			return ConvertListDinhMucNguyenVatLieuToDto(result);

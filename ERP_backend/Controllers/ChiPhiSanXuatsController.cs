@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
 using ERP_backend.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace erp_backend.controllers
 {
@@ -25,6 +26,7 @@ namespace erp_backend.controllers
 
 		// GET: api/BaoCaoSanXuats
 		[HttpGet]
+		//[Authorize(Roles = "Bộ phận kế toán")]
 		public async Task<ActionResult<IEnumerable<ChiPhiSanXuatDto>>> GetChiPhiSanXuats()
 		{
 			var result = await _ChiPhiSanXuatService.GetAll();
@@ -33,6 +35,7 @@ namespace erp_backend.controllers
 
 		// GET: api/BaoCaoSanXuats/5
 		[HttpGet("{id}")]
+		//[Authorize(Roles = "Bộ phận kế toán")]
 		public async Task<ActionResult<ChiPhiSanXuatDto>> GetChiPhiSanXuat(Guid id)
 		{
 			var chiPhiSanXuat= await _ChiPhiSanXuatService.GetById(id);
@@ -48,6 +51,7 @@ namespace erp_backend.controllers
 		// PUT: api/BaoCaoSanXuats/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		//[Authorize(Roles = "Bộ phận kế toán")]
 		public async Task<IActionResult> PutChiPhiSanXuat(Guid id, ChiPhiSanXuatDto chiPhiSanXuat)
 		{
 			if (id != chiPhiSanXuat.MaChiPhiSanXuat)
@@ -77,6 +81,7 @@ namespace erp_backend.controllers
 		// POST: api/BaoCaoSanXuats
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
+		//[Authorize(Roles = "Bộ phận kế toán")]
 		public async Task<ActionResult<ChiPhiSanXuatDto>> PostBaoCaoSanXuat(ChiPhiSanXuatDto chiPhiSanXuat)
 		{
 			var result = await _ChiPhiSanXuatService.Add(chiPhiSanXuat);
@@ -86,6 +91,7 @@ namespace erp_backend.controllers
 
 		// DELETE: api/BaoCaoSanXuats/5
 		[HttpDelete("{id}")]
+		//[Authorize(Roles = "Bộ phận kế toán")]
 		public async Task<IActionResult> DeleteChiPhiSanXuat(Guid id)
 		{
 			var chiPhiSanXuat = await _ChiPhiSanXuatService.GetById(id);

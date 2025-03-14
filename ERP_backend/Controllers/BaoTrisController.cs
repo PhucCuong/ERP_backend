@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -23,7 +24,8 @@ namespace ERP_backend.Controllers
 		}
 		// GET: api/BaoTris
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<BaoTriDto>>> GetBaoTris()
+		//[Authorize(Roles = "Bộ phận bảo trì")]
+		public async Task<ActionResult<IEnumerable<BaoTriDto>>> GetBaoTris()
         {
 			var result = await _baoTriService.GetAll();
 			return Ok(result);
@@ -31,7 +33,8 @@ namespace ERP_backend.Controllers
 
         // GET: api/BaoTris/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaoTriDto>> GetBaoTri(Guid id)
+		//[Authorize(Roles = "Bộ phận bảo trì")]
+		public async Task<ActionResult<BaoTriDto>> GetBaoTri(Guid id)
         {
 			var baoTri = await _baoTriService.GetById(id);
 
@@ -42,7 +45,8 @@ namespace ERP_backend.Controllers
         // PUT: api/BaoTris/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaoTri(Guid id, BaoTriDto baoTri)
+		//[Authorize(Roles = "Bộ phận bảo trì")]
+		public async Task<IActionResult> PutBaoTri(Guid id, BaoTriDto baoTri)
         {
             if (id != baoTri.MaBaoTri)
             {
@@ -71,7 +75,8 @@ namespace ERP_backend.Controllers
         // POST: api/BaoTris
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BaoTriDto>> PostBaoTri(BaoTriDto baoTri)
+		//[Authorize(Roles = "Bộ phận bảo trì")]
+		public async Task<ActionResult<BaoTriDto>> PostBaoTri(BaoTriDto baoTri)
         {
 			var result = await _baoTriService.Add(baoTri);
 
@@ -80,7 +85,8 @@ namespace ERP_backend.Controllers
 
         // DELETE: api/BaoTris/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBaoTri(Guid id)
+		//[Authorize(Roles = "Bộ phận bảo trì")]
+		public async Task<IActionResult> DeleteBaoTri(Guid id)
         {
 			var baoTri = await _baoTriService.GetById(id);
 			if (baoTri == null)

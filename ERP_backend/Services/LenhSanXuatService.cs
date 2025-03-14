@@ -44,7 +44,7 @@ namespace ERP_backend.Services
 			var result = await _lenhSanXuatRepository.Update(convertData);
 			return ConvertLenhSanXuatToDto(result);
 		}
-		private LenhSanXuatDto ConvertLenhSanXuatToDto(LenhSanXuat input)
+		public static LenhSanXuatDto ConvertLenhSanXuatToDto(LenhSanXuat input)
 		{
 			var result = new LenhSanXuatDto();
 			if (input == null)
@@ -123,6 +123,7 @@ namespace ERP_backend.Services
 
 			return result;
 		}
-	}
+
+    }
 
 }

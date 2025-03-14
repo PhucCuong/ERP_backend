@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
 using ERP_backend.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -25,7 +26,8 @@ namespace ERP_backend.Controllers
 
         // GET: api/BaoCaoSanXuats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BaoCaoSanXuatDto>>> GetBaoCaoSanXuats()
+		
+		public async Task<ActionResult<IEnumerable<BaoCaoSanXuatDto>>> GetBaoCaoSanXuats()
         {
             var result = await _BaoCaoSanXuatService.GetAll();
             return Ok(result);
@@ -33,7 +35,8 @@ namespace ERP_backend.Controllers
 
         // GET: api/BaoCaoSanXuats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaoCaoSanXuatDto>> GetBaoCaoSanXuat(Guid id)
+		
+		public async Task<ActionResult<BaoCaoSanXuatDto>> GetBaoCaoSanXuat(Guid id)
         {
             var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
 
@@ -48,7 +51,8 @@ namespace ERP_backend.Controllers
         // PUT: api/BaoCaoSanXuats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaoCaoSanXuat(Guid id, BaoCaoSanXuatDto BaoCaoSanXuat)
+		[Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<IActionResult> PutBaoCaoSanXuat(Guid id, BaoCaoSanXuatDto BaoCaoSanXuat)
         {
             if (id != BaoCaoSanXuat.MaBaoCao)
             {
@@ -77,7 +81,8 @@ namespace ERP_backend.Controllers
         // POST: api/BaoCaoSanXuats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BaoCaoSanXuatDto>> PostBaoCaoSanXuat(BaoCaoSanXuatDto BaoCaoSanXuat)
+
+		public async Task<ActionResult<BaoCaoSanXuatDto>> PostBaoCaoSanXuat(BaoCaoSanXuatDto BaoCaoSanXuat)
         {
             var result = await _BaoCaoSanXuatService.Add(BaoCaoSanXuat);
 
@@ -86,7 +91,8 @@ namespace ERP_backend.Controllers
 
         // DELETE: api/BaoCaoSanXuats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBaoCaoSanXuat(Guid id)
+
+		public async Task<IActionResult> DeleteBaoCaoSanXuat(Guid id)
         {
             var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
             if (BaoCaoSanXuat == null)

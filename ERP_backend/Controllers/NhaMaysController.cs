@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -25,6 +26,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/NhaMayx
 		[HttpGet]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật")]
 		public async Task<ActionResult<IEnumerable<NhaMayDto>>> GetNhaMays()
 		{
 			var result = await _NhaMayService.GetAll();
@@ -33,6 +35,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/NhaMayx/5
 		[HttpGet("{id}")]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật")]
 		public async Task<ActionResult<NhaMayDto>> GetNhaMay(Guid id)
 		{
 			var NhaMay = await _NhaMayService.GetById(id);
@@ -48,6 +51,7 @@ namespace ERP_backend.Controllers
 		// PUT: api/NhaMayx/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		//[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> PutNhaMay(Guid id, NhaMayDto NhaMay)
 		{
 			if (id != NhaMay.MaNhaMay)
@@ -77,6 +81,7 @@ namespace ERP_backend.Controllers
 		// POST: api/NhaMayx
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
+		//[Authorize(Roles = "Admin")]
 		public async Task<ActionResult<NhaMayDto>> PostNhaMay(NhaMayDto NhaMay)
 		{
 
@@ -87,6 +92,7 @@ namespace ERP_backend.Controllers
 
 		// DELETE: api/NhaMayx/5
 		[HttpDelete("{id}")]
+		//[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> DeleteNhaMay(Guid id)
 		{
 			var NhaMay = await _NhaMayService.GetById(id);

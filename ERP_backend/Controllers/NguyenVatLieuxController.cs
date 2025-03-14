@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -17,7 +18,6 @@ namespace ERP_backend.Controllers
 	public class NguyenVatLieuxController : ControllerBase
 	{
 		private readonly INguyenVatLieuService _NguyenVatLieuService;
-
 		public NguyenVatLieuxController(INguyenVatLieuService NguyenVatLieu)
 		{
 			_NguyenVatLieuService = NguyenVatLieu;
@@ -25,6 +25,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/NguyenVatLieux
 		[HttpGet]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật,Bộ phận bán hàng,Bộ phận kho,Bộ phận kế hoạch,Admin")]
 		public async Task<ActionResult<IEnumerable<NguyenVatLieuDto>>> GetNguyenVatLieus()
 		{
 			var result = await _NguyenVatLieuService.GetAll();
@@ -33,6 +34,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/NguyenVatLieux/5
 		[HttpGet("{id}")]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật,Bộ phận bán hàng,Bộ phận kho,Bộ phận kế hoạch,Admin")]
 		public async Task<ActionResult<NguyenVatLieuDto>> GetNguyenVatLieu(Guid id)
 		{
 			var NguyenVatLieu = await _NguyenVatLieuService.GetById(id);
@@ -48,6 +50,7 @@ namespace ERP_backend.Controllers
 		// PUT: api/NguyenVatLieux/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<IActionResult> PutNguyenVatLieu(Guid id, NguyenVatLieuDto NguyenVatLieu)
 		{
 			if (id != NguyenVatLieu.MaNguyenVatLieu)
@@ -77,6 +80,7 @@ namespace ERP_backend.Controllers
 		// POST: api/NguyenVatLieux
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<ActionResult<NguyenVatLieuDto>> PostNguyenVatLieu(NguyenVatLieuDto NguyenVatLieu)
 		{
 
@@ -87,6 +91,7 @@ namespace ERP_backend.Controllers
 
 		// DELETE: api/NguyenVatLieux/5
 		[HttpDelete("{id}")]
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<IActionResult> DeleteNguyenVatLieu(Guid id)
 		{
 			var NguyenVatLieu = await _NguyenVatLieuService.GetById(id);

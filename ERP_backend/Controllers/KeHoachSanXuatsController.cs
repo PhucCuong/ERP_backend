@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -25,6 +26,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/KeHoachSanXuatx
 		[HttpGet]
+		//[Authorize(Roles = "Bộ phận kế hoạch")]
 		public async Task<ActionResult<IEnumerable<KeHoachSanXuatDto>>> GetKeHoachSanXuats()
 		{
 			var result = await _keHoachSanXuatService.GetAll();
@@ -33,6 +35,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/KeHoachSanXuatx/5
 		[HttpGet("{id}")]
+		//[Authorize(Roles = "Bộ phận kế hoạch")]
 		public async Task<ActionResult<KeHoachSanXuatDto>> GetKeHoachSanXuat(Guid id)
 		{
 			var KeHoachSanXuat = await _keHoachSanXuatService.GetById(id);
@@ -48,6 +51,7 @@ namespace ERP_backend.Controllers
 		// PUT: api/KeHoachSanXuatx/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		//[Authorize(Roles = "Bộ phận kế hoạch")]
 		public async Task<IActionResult> PutKeHoachSanXuat(Guid id, KeHoachSanXuatDto KeHoachSanXuat)
 		{
 			if (id != KeHoachSanXuat.MaKeHoach)
@@ -77,6 +81,7 @@ namespace ERP_backend.Controllers
 		// POST: api/KeHoachSanXuatx
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
+		//[Authorize(Roles = "Bộ phận kế hoạch")]
 		public async Task<ActionResult<KeHoachSanXuatDto>> PostKeHoachSanXuat(KeHoachSanXuatDto KeHoachSanXuat)
 		{
 
@@ -87,6 +92,7 @@ namespace ERP_backend.Controllers
 
 		// DELETE: api/KeHoachSanXuatx/5
 		[HttpDelete("{id}")]
+		//[Authorize(Roles = "Bộ phận kế hoạch")]
 		public async Task<IActionResult> DeleteKeHoachSanXuat(Guid id)
 		{
 			var KeHoachSanXuat = await _keHoachSanXuatService.GetById(id);

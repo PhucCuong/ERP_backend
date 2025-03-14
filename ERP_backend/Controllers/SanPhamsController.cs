@@ -9,6 +9,8 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using ERP_backend.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -25,6 +27,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/SanPhamx
 		[HttpGet]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật,Bộ phận bán hàng,Bộ phận kho,Bộ phận kế hoạch,Admin")]
 		public async Task<ActionResult<IEnumerable<SanPhamDto>>> GetSanPhams()
 		{
 			var result = await _SanPhamService.GetAll();
@@ -33,6 +36,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/SanPhamx/5
 		[HttpGet("{id}")]
+		//[Authorize(Roles = "Bộ phận kho,Admin,Bộ phận sản xuất,Bộ phận kế hoạch,Bộ phận kỹ thuật,Bộ phận bán hàng,Bộ phận kho,Bộ phận kế hoạch,Admin")]
 		public async Task<ActionResult<SanPhamDto>> GetSanPham(Guid id)
 		{
 			var SanPham = await _SanPhamService.GetById(id);
@@ -48,6 +52,7 @@ namespace ERP_backend.Controllers
 		// PUT: api/SanPhamx/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<IActionResult> PutSanPham(Guid id, SanPhamDto SanPham)
 		{
 			if (id != SanPham.MaSanPham)
@@ -78,17 +83,20 @@ namespace ERP_backend.Controllers
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		
 		[HttpPost]
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<ActionResult<SanPhamDto>> PostSanPham( SanPhamDto sanPham)
 		{
 			
 	
 			var result = await _SanPhamService.Add(sanPham);
-			return CreatedAtAction("GetSanPham", new { id = sanPham.MaSanPham },sanPham);
+			//return CreatedAtAction("GetSanPham", new { id = sanPham.MaSanPham },sanPham);
+			return Ok(result);
 		}
 		
 
 		// DELETE: api/SanPhamx/5
 		[HttpDelete("{id}")]
+		////[Authorize(Roles = "Bộ phận kỹ thuật")]
 		public async Task<IActionResult> DeleteSanPham(Guid id)
 		{
 			var SanPham = await _SanPhamService.GetById(id);

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ERP_backend.Models;
 using ERP_backend.Services;
 using ERP_backend.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -24,7 +25,8 @@ namespace ERP_backend.Controllers
 
 		// GET: api/ChiTietHoatDongSanXuats
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<ChiTietHoatDongSanXuatDto>>> GetChiTietHoatDongSanXuats()
+		//// [Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<ActionResult<IEnumerable<ChiTietHoatDongSanXuatDto>>> GetChiTietHoatDongSanXuats()
         {
 			var result = await _chiTietHoatDongSanXuatService.GetAll();
 			return Ok(result);
@@ -32,7 +34,8 @@ namespace ERP_backend.Controllers
 
         // GET: api/ChiTietHoatDongSanXuats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ChiTietHoatDongSanXuatDto>> GetChiTietHoatDongSanXuat(Guid id)
+		// [Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<ActionResult<ChiTietHoatDongSanXuatDto>> GetChiTietHoatDongSanXuat(Guid id)
         {
 			var baoTri = await _chiTietHoatDongSanXuatService.GetById(id);
 
@@ -43,7 +46,8 @@ namespace ERP_backend.Controllers
         // PUT: api/ChiTietHoatDongSanXuats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChiTietHoatDongSanXuat(Guid id, ChiTietHoatDongSanXuatDto chiTietHoatDongSanXuat)
+		// [Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<IActionResult> PutChiTietHoatDongSanXuat(Guid id, ChiTietHoatDongSanXuatDto chiTietHoatDongSanXuat)
         {
 			if (id != chiTietHoatDongSanXuat.MaHoatDong)
 			{
@@ -72,7 +76,8 @@ namespace ERP_backend.Controllers
         // POST: api/ChiTietHoatDongSanXuats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ChiTietHoatDongSanXuatDto>> PostChiTietHoatDongSanXuat(ChiTietHoatDongSanXuatDto chiTietHoatDongSanXuat)
+		// [Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<ActionResult<ChiTietHoatDongSanXuatDto>> PostChiTietHoatDongSanXuat(ChiTietHoatDongSanXuatDto chiTietHoatDongSanXuat)
         {
 			var result = await _chiTietHoatDongSanXuatService.Add(chiTietHoatDongSanXuat);
 
@@ -81,7 +86,8 @@ namespace ERP_backend.Controllers
 
         // DELETE: api/ChiTietHoatDongSanXuats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteChiTietHoatDongSanXuat(Guid id)
+		// [Authorize(Roles = "Bộ phận sản xuất")]
+		public async Task<IActionResult> DeleteChiTietHoatDongSanXuat(Guid id)
         {
 			var baoTri = await _chiTietHoatDongSanXuatService.GetById(id);
 			if (baoTri == null)

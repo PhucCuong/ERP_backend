@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace ERP_backend.Models;
 
-public partial class QlySanXuatErpContext : DbContext
+public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public QlySanXuatErpContext()
     {
@@ -23,7 +26,7 @@ public partial class QlySanXuatErpContext : DbContext
 
     public virtual DbSet<ChiTietHoatDongSanXuat> ChiTietHoatDongSanXuats { get; set; }
 
-    public virtual DbSet<ChucVu> ChucVus { get; set; }
+    
 
     public virtual DbSet<DinhMucNguyenVatLieu> DinhMucNguyenVatLieus { get; set; }
 
@@ -51,17 +54,19 @@ public partial class QlySanXuatErpContext : DbContext
 
     public virtual DbSet<TonKho> TonKhos { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    
 
     public virtual DbSet<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DUONG;Initial Catalog=QlySanXuatERP;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<BaoCaoSanXuat>(entity =>
+		base.OnModelCreating(modelBuilder);
+
+		modelBuilder.Entity<BaoCaoSanXuat>(entity =>
         {
             entity.HasKey(e => e.MaBaoCao).HasName("PK__BaoCaoSa__25A9188CB9685144");
 
@@ -152,15 +157,7 @@ public partial class QlySanXuatErpContext : DbContext
                 .HasConstraintName("FK__ChiTietHo__MaQuy__236943A5");
         });
 
-        modelBuilder.Entity<ChucVu>(entity =>
-        {
-            entity.HasKey(e => e.MaChucVu).HasName("PK__ChucVu__D4639533390787D7");
-
-            entity.ToTable("ChucVu");
-
-            entity.Property(e => e.MaChucVu).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.TenChucVu).HasMaxLength(255);
-        });
+      
 
         modelBuilder.Entity<DinhMucNguyenVatLieu>(entity =>
         {
@@ -428,33 +425,7 @@ public partial class QlySanXuatErpContext : DbContext
                 .HasConstraintName("FK_TonKho_NV");
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.MaUser).HasName("PK__User__55DAC4B7B382D592");
-
-            entity.ToTable("User");
-
-            entity.HasIndex(e => e.Email, "IX_User_Email");
-
-            entity.HasIndex(e => e.TenDangNhap, "IX_User_TenDangNhap");
-
-            entity.HasIndex(e => e.TenDangNhap, "UQ__User__55F68FC0D4192AFD").IsUnique();
-
-            entity.HasIndex(e => e.Email, "UQ__User__A9D105346029985A").IsUnique();
-
-            entity.Property(e => e.MaUser).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.HoTen).HasMaxLength(255);
-            entity.Property(e => e.MatKhau).HasMaxLength(255);
-            entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.SoDienThoai).HasMaxLength(20);
-            entity.Property(e => e.TenDangNhap).HasMaxLength(100);
-
-            entity.HasOne(d => d.MaChucVuNavigation).WithMany(p => p.Users)
-                .HasForeignKey(d => d.MaChucVu)
-                .HasConstraintName("FK_User_ChucVu");
-        });
+        
 
         modelBuilder.Entity<YeuCauNguyenVatLieu>(entity =>
         {

@@ -42,7 +42,5 @@ namespace ERP_backend.Repositories
 			await _context.SaveChangesAsync();
 			return result;
 		}
-
-		
-	}
+    }
 }

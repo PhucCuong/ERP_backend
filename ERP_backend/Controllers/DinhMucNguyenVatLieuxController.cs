@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ERP_backend.Controllers
 {
@@ -25,7 +26,8 @@ namespace ERP_backend.Controllers
 
 		// GET: api/DinhMucNguyenVatLieux
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<DinhMucNguyenVatLieuDto>>> GetDinhMucNguyenVatLieus()
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
+		public async Task<ActionResult<IEnumerable<DinhMucNguyenVatLieuDto>>> GetDinhMucNguyenVatLieus()
         {
 			var result = await _dinhMucNguyenVatLieuService.GetAll();
 			return Ok(result);
@@ -33,7 +35,8 @@ namespace ERP_backend.Controllers
 
         // GET: api/DinhMucNguyenVatLieux/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DinhMucNguyenVatLieuDto>> GetDinhMucNguyenVatLieu(Guid id)
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
+		public async Task<ActionResult<DinhMucNguyenVatLieuDto>> GetDinhMucNguyenVatLieu(Guid id)
         {
 			var dinhMucNguyenVatLieu = await _dinhMucNguyenVatLieuService.GetById(id);
 
@@ -48,7 +51,8 @@ namespace ERP_backend.Controllers
         // PUT: api/DinhMucNguyenVatLieux/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDinhMucNguyenVatLieu(Guid id, DinhMucNguyenVatLieuDto dinhMucNguyenVatLieu)
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
+		public async Task<IActionResult> PutDinhMucNguyenVatLieu(Guid id, DinhMucNguyenVatLieuDto dinhMucNguyenVatLieu)
         {
 			if (id != dinhMucNguyenVatLieu.MaDinhMuc)
 			{
@@ -77,7 +81,8 @@ namespace ERP_backend.Controllers
         // POST: api/DinhMucNguyenVatLieux
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DinhMucNguyenVatLieuDto>> PostDinhMucNguyenVatLieu(DinhMucNguyenVatLieuDto dinhMucNguyenVatLieu)
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
+		public async Task<ActionResult<DinhMucNguyenVatLieuDto>> PostDinhMucNguyenVatLieu(DinhMucNguyenVatLieuDto dinhMucNguyenVatLieu)
         {
 
 			var result = await _dinhMucNguyenVatLieuService.Add(dinhMucNguyenVatLieu);
@@ -87,7 +92,8 @@ namespace ERP_backend.Controllers
 
         // DELETE: api/DinhMucNguyenVatLieux/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDinhMucNguyenVatLieu(Guid id)
+		//[Authorize(Roles = "Bộ phận kỹ thuật")]
+		public async Task<IActionResult> DeleteDinhMucNguyenVatLieu(Guid id)
         {
 			var dinhMucNguyenVatLieu = await _dinhMucNguyenVatLieuService.GetById(id);
 			if (dinhMucNguyenVatLieu == null)
