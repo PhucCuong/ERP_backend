@@ -17,13 +17,13 @@ public partial class ChiTietHoatDongSanXuat
 
     public decimal? SoLuongChoXuLy { get; set; }
 
-    public string LoaiTinhThoiGian { get; set; } = null!;
-
     public decimal? ThoiGianMacDinh { get; set; }
 
     public string DieuKienBatDauGiaiDoanTiepTheo { get; set; } = null!;
 
     public string? MoTa { get; set; }
+
+    public string? FileData { get; set; }
 
     public virtual QuyTrinhSanXuat MaQuyTrinhNavigation { get; set; } = null!;
 }

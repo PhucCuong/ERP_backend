@@ -6,7 +6,7 @@ namespace ERP_backend.Services
 	public interface ILenhGoBoService
 	{
 	Task<IEnumerable<LenhGoBoDto>> GetAll();
-		Task<LenhGoBoDto> GetById(Guid id);
+		Task<LenhGoBoDto> GetById(int id);
 		Task<LenhGoBoDto> Update(LenhGoBoDto input);
 		Task<LenhGoBoDto> Add(LenhGoBoDto input);
 		Task<LenhGoBoDto> Delete(LenhGoBoDto input);

@@ -11,5 +11,6 @@ namespace ERP_backend.Repositories
 
 		Task<bool> AddRoleAsync(string roleName); // Thêm Role mới
 		Task<bool> AssignRoleAsync(string userId, string roleName); // Gán Role cho User
+		Task<string> ChangePasswordAsync(ChangePassword model);
 	}
 }

@@ -32,7 +32,7 @@ namespace ERP_backend.Services
 			return ConvertListLenhSanXuatToDto(result);
 		}
 
-		public async Task<LenhSanXuatDto> GetById(Guid id)
+		public async Task<LenhSanXuatDto> GetById(int id)
 		{
 			var result = await _lenhSanXuatRepository.GetById(id);
 			return ConvertLenhSanXuatToDto(result);
@@ -51,7 +51,8 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaLenh = input.MaLenh;
+            // LSX/00001
+            result.MaLenh = "LSX/" + input.MaLenh.ToString().PadLeft(5,'0');
 			result.MaKeHoach = input.MaKeHoach;
 			result.MaQuyTrinh = input.MaQuyTrinh;
 			result.MaSanPham = input.MaSanPham;
@@ -93,7 +94,8 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaLenh = input.MaLenh;
+			// LSX/00001
+			result.MaLenh = int.Parse(input.MaLenh.Substring(4,5));
 			result.MaKeHoach = input.MaKeHoach;
 			result.MaQuyTrinh = input.MaQuyTrinh;
 			result.MaSanPham = input.MaSanPham;

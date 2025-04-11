@@ -35,7 +35,7 @@ namespace ERP_backend.Services
 
 		}
 
-		public async Task<BaoCaoSanXuatDto> GetById(Guid id)
+		public async Task<BaoCaoSanXuatDto> GetById(int id)
 		{
 			var result = await _BaoCaoSanXuatRepository.GetById(id);
 			return ConvertBaoCaoSanXuatToDto(result);

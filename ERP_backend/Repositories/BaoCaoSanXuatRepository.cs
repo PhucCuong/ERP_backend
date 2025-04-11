@@ -33,7 +33,7 @@ namespace ERP_backend.Repositories
 			return await _context.BaoCaoSanXuats.ToListAsync();
 		}
 
-		public async Task<BaoCaoSanXuat> GetById(Guid id)
+		public async Task<BaoCaoSanXuat> GetById(int id)
 		{
 			return await _context.BaoCaoSanXuats.FindAsync(id);
 		}

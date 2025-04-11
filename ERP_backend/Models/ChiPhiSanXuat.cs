@@ -7,7 +7,7 @@ public partial class ChiPhiSanXuat
 {
     public Guid MaChiPhiSanXuat { get; set; }
 
-    public Guid MaLenhSanXuat { get; set; }
+    public int MaLenh { get; set; }
 
     public string LoaiChiPhi { get; set; } = null!;
 
@@ -17,5 +17,5 @@ public partial class ChiPhiSanXuat
 
     public DateTime? NgayTao { get; set; }
 
-    public virtual LenhSanXuat MaLenhSanXuatNavigation { get; set; } = null!;
+    public virtual LenhSanXuat MaLenhNavigation { get; set; } = null!;
 }

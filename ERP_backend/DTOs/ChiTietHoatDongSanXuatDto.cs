@@ -5,7 +5,7 @@ namespace ERP_backend.DTOs;
 
 public class ChiTietHoatDongSanXuatDto
 {
-	public Guid MaHoatDong { get; set; }
+	public Guid MaHoatDong { get; set; } = Guid.NewGuid();
 
 	public Guid MaQuyTrinh { get; set; }
 
@@ -17,13 +17,11 @@ public class ChiTietHoatDongSanXuatDto
 
 	public decimal? SoLuongChoXuLy { get; set; }
 
-	public string LoaiTinhThoiGian { get; set; } = null!;
-
 	public decimal? ThoiGianMacDinh { get; set; }
 
 	public string? DieuKienBatDauGiaiDoanTiepTheo { get; set; } = null!;
 
 	public string? MoTa { get; set; }
+	public string? FileData { get; set; }
 
-	public virtual QuyTrinhSanXuatDto MaQuyTrinhNavigation { get; set; } = null!;
 }

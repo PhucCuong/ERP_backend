@@ -36,6 +36,7 @@ namespace ERP_backend.Repositories
 			return await _context.ChiTietHoatDongSanXuats.FindAsync(id);
 		}
 
+	
 		public async Task<ChiTietHoatDongSanXuat> Update(ChiTietHoatDongSanXuat input)
 		{
 			var result = _context.ChiTietHoatDongSanXuats.Update(input).Entity;

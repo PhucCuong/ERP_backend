@@ -21,6 +21,8 @@ public partial class SanPham
 
     public virtual ICollection<BaoCaoSanXuat> BaoCaoSanXuats { get; set; } = new List<BaoCaoSanXuat>();
 
+    public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
+
     public virtual ICollection<DinhMucNguyenVatLieu> DinhMucNguyenVatLieus { get; set; } = new List<DinhMucNguyenVatLieu>();
 
     public virtual ICollection<KeHoachSanXuat> KeHoachSanXuats { get; set; } = new List<KeHoachSanXuat>();

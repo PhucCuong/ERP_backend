@@ -52,7 +52,7 @@ namespace ERP_backend.Services
 				return result;
 			}
 			result.MaChiPhiSanXuat = input.MaChiPhiSanXuat;
-			result.MaLenhSanXuat = input.MaLenhSanXuat;
+			result.MaLenhSanXuat = input.MaLenh;
 			result.LoaiChiPhi = input.LoaiChiPhi;
 			result.MoTa = input.MoTa;
 			result.SoTien = input.SoTien;
@@ -89,7 +89,7 @@ namespace ERP_backend.Services
 				return result;
 			}
 			result.MaChiPhiSanXuat = input.MaChiPhiSanXuat;
-			result.MaLenhSanXuat = input.MaLenhSanXuat;
+			result.MaLenh = input.MaLenhSanXuat;
 			result.LoaiChiPhi = input.LoaiChiPhi;
 			result.MoTa = input.MoTa;
 			result.SoTien = input.SoTien;

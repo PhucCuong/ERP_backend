@@ -98,6 +98,66 @@ namespace ERP_backend.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ERP_backend.Models.AspNetUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChucVu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AspNetUser");
+                });
+
             modelBuilder.Entity("ERP_backend.Models.BaoCaoSanXuat", b =>
                 {
                     b.Property<Guid>("MaBaoCao")
@@ -213,7 +273,7 @@ namespace ERP_backend.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("MaLenhSanXuat")
+                    b.Property<Guid>("MaLenh")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MoTa")
@@ -230,9 +290,43 @@ namespace ERP_backend.Migrations
                     b.HasKey("MaChiPhiSanXuat")
                         .HasName("PK__ChiPhiSa__5ECCCAAC3C8E922F");
 
-                    b.HasIndex(new[] { "MaLenhSanXuat" }, "IX_ChiPhiSanXuat_MaLenhSanXuat");
+                    b.HasIndex(new[] { "MaLenh" }, "IX_ChiPhiSanXuat_MaLenhSanXuat");
 
                     b.ToTable("ChiPhiSanXuat", (string)null);
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.ChiTietDonHang", b =>
+                {
+                    b.Property<Guid>("MaChiTietDonHang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<decimal?>("GiaSanPham")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("MaDonHang")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MaSanPham")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("ThanhTien")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("decimal(29, 2)")
+                        .HasComputedColumnSql("([SoLuong]*[GiaSanPham])", true);
+
+                    b.HasKey("MaChiTietDonHang")
+                        .HasName("PK__ChiTietD__4B0B45DD8CE891ED");
+
+                    b.HasIndex("MaDonHang");
+
+                    b.HasIndex("MaSanPham");
+
+                    b.ToTable("ChiTietDonHang", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.ChiTietHoatDongSanXuat", b =>
@@ -247,14 +341,14 @@ namespace ERP_backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<byte[]>("FileData")
+                        .IsRequired()
+                        .HasColumnType("VARBINARY(MAX)")
+                        .HasColumnName("FileData");
+
                     b.Property<string>("GiaiDoanSanXuat")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LoaiTinhThoiGian")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("MaQuyTrinh")
                         .HasColumnType("uniqueidentifier");
@@ -282,24 +376,6 @@ namespace ERP_backend.Migrations
                     b.HasIndex("MaQuyTrinh");
 
                     b.ToTable("ChiTietHoatDongSanXuat", (string)null);
-                });
-
-            modelBuilder.Entity("ERP_backend.Models.ChucVu", b =>
-                {
-                    b.Property<Guid>("MaChucVu")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<string>("TenChucVu")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("MaChucVu")
-                        .HasName("PK__ChucVu__D4639533390787D7");
-
-                    b.ToTable("ChucVu", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.DinhMucNguyenVatLieu", b =>
@@ -344,6 +420,43 @@ namespace ERP_backend.Migrations
                     b.HasIndex("MaSanPham");
 
                     b.ToTable("DinhMucNguyenVatLieu", (string)null);
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.DonHang", b =>
+                {
+                    b.Property<Guid>("MaDonHang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<Guid>("MaKhachHang")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("NgayDatHang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<decimal?>("TongTien")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18, 2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("MaDonHang")
+                        .HasName("PK__DonHang__129584ADEF26CBBC");
+
+                    b.HasIndex("MaKhachHang");
+
+                    b.ToTable("DonHang", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.KeHoachSanXuat", b =>
@@ -408,6 +521,37 @@ namespace ERP_backend.Migrations
                     b.HasIndex(new[] { "MaSanPham" }, "IX_KeHoachSanXuat_MaSanPham");
 
                     b.ToTable("KeHoachSanXuat", (string)null);
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.KetQuaKiemTra", b =>
+                {
+                    b.Property<Guid>("KetQuaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KetQua")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("MaKiemTra")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("NgayTao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("(getutcdate())");
+
+                    b.HasKey("KetQuaId")
+                        .HasName("PK__KetQuaKi__0CFF0203736F27AC");
+
+                    b.HasIndex("MaKiemTra");
+
+                    b.ToTable("KetQuaKiemTra", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.Kho", b =>
@@ -635,8 +779,10 @@ namespace ERP_backend.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int?>("ChiPhi")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ChiPhi")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(255.00m);
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(500)
@@ -826,68 +972,6 @@ namespace ERP_backend.Migrations
                     b.HasIndex("MaNguyenVatLieu");
 
                     b.ToTable("TonKho", (string)null);
-                });
-
-            modelBuilder.Entity("ERP_backend.Models.User", b =>
-                {
-                    b.Property<Guid>("MaUser")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("HoTen")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<Guid?>("MaChucVu")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MatKhau")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("NgayChinhSua")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<DateTime?>("NgayTao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("SoDienThoai")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("TenDangNhap")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("MaUser")
-                        .HasName("PK__User__55DAC4B7B382D592");
-
-                    b.HasIndex("MaChucVu");
-
-                    b.HasIndex(new[] { "Email" }, "IX_User_Email");
-
-                    b.HasIndex(new[] { "TenDangNhap" }, "IX_User_TenDangNhap");
-
-                    b.HasIndex(new[] { "TenDangNhap" }, "UQ__User__55F68FC0D4192AFD")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Email" }, "UQ__User__A9D105346029985A")
-                        .IsUnique();
-
-                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.YeuCauNguyenVatLieu", b =>
@@ -1096,13 +1180,30 @@ namespace ERP_backend.Migrations
 
             modelBuilder.Entity("ERP_backend.Models.ChiPhiSanXuat", b =>
                 {
-                    b.HasOne("ERP_backend.Models.LenhSanXuat", "MaLenhSanXuatNavigation")
+                    b.HasOne("ERP_backend.Models.LenhSanXuat", "MaLenhNavigation")
                         .WithMany("ChiPhiSanXuats")
-                        .HasForeignKey("MaLenhSanXuat")
+                        .HasForeignKey("MaLenh")
                         .IsRequired()
                         .HasConstraintName("FK__ChiPhiSan__MaLen__00200768");
 
-                    b.Navigation("MaLenhSanXuatNavigation");
+                    b.Navigation("MaLenhNavigation");
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.ChiTietDonHang", b =>
+                {
+                    b.HasOne("ERP_backend.Models.DonHang", "MaDonHangNavigation")
+                        .WithMany("ChiTietDonHangs")
+                        .HasForeignKey("MaDonHang")
+                        .HasConstraintName("FK_ChiTietDonHang_DonHang");
+
+                    b.HasOne("ERP_backend.Models.SanPham", "MaSanPhamNavigation")
+                        .WithMany("ChiTietDonHangs")
+                        .HasForeignKey("MaSanPham")
+                        .HasConstraintName("FK_ChiTietDonHang_SanPham");
+
+                    b.Navigation("MaDonHangNavigation");
+
+                    b.Navigation("MaSanPhamNavigation");
                 });
 
             modelBuilder.Entity("ERP_backend.Models.ChiTietHoatDongSanXuat", b =>
@@ -1135,6 +1236,17 @@ namespace ERP_backend.Migrations
                     b.Navigation("MaSanPhamNavigation");
                 });
 
+            modelBuilder.Entity("ERP_backend.Models.DonHang", b =>
+                {
+                    b.HasOne("ERP_backend.Models.AspNetUser", "MaKhachHangNavigation")
+                        .WithMany("DonHangs")
+                        .HasForeignKey("MaKhachHang")
+                        .IsRequired()
+                        .HasConstraintName("FK_DonHang_IdentityUser");
+
+                    b.Navigation("MaKhachHangNavigation");
+                });
+
             modelBuilder.Entity("ERP_backend.Models.KeHoachSanXuat", b =>
                 {
                     b.HasOne("ERP_backend.Models.NhaMay", "MaNhaMayNavigation")
@@ -1152,6 +1264,17 @@ namespace ERP_backend.Migrations
                     b.Navigation("MaNhaMayNavigation");
 
                     b.Navigation("MaSanPhamNavigation");
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.KetQuaKiemTra", b =>
+                {
+                    b.HasOne("ERP_backend.Models.KiemTraChatLuong", "MaKiemTraNavigation")
+                        .WithMany("KetQuaKiemTras")
+                        .HasForeignKey("MaKiemTra")
+                        .IsRequired()
+                        .HasConstraintName("FK__KetQuaKie__MaKie__7755B73D");
+
+                    b.Navigation("MaKiemTraNavigation");
                 });
 
             modelBuilder.Entity("ERP_backend.Models.KiemTraChatLuong", b =>
@@ -1252,16 +1375,6 @@ namespace ERP_backend.Migrations
                     b.Navigation("MaNguyenVatLieuNavigation");
                 });
 
-            modelBuilder.Entity("ERP_backend.Models.User", b =>
-                {
-                    b.HasOne("ERP_backend.Models.ChucVu", "MaChucVuNavigation")
-                        .WithMany("Users")
-                        .HasForeignKey("MaChucVu")
-                        .HasConstraintName("FK_User_ChucVu");
-
-                    b.Navigation("MaChucVuNavigation");
-                });
-
             modelBuilder.Entity("ERP_backend.Models.YeuCauNguyenVatLieu", b =>
                 {
                     b.HasOne("ERP_backend.Models.KeHoachSanXuat", "MaKeHoachNavigation")
@@ -1332,9 +1445,14 @@ namespace ERP_backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ERP_backend.Models.ChucVu", b =>
+            modelBuilder.Entity("ERP_backend.Models.AspNetUser", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("DonHangs");
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.DonHang", b =>
+                {
+                    b.Navigation("ChiTietDonHangs");
                 });
 
             modelBuilder.Entity("ERP_backend.Models.KeHoachSanXuat", b =>
@@ -1351,6 +1469,11 @@ namespace ERP_backend.Migrations
             modelBuilder.Entity("ERP_backend.Models.Kho", b =>
                 {
                     b.Navigation("TonKhos");
+                });
+
+            modelBuilder.Entity("ERP_backend.Models.KiemTraChatLuong", b =>
+                {
+                    b.Navigation("KetQuaKiemTras");
                 });
 
             modelBuilder.Entity("ERP_backend.Models.LenhSanXuat", b =>
@@ -1384,6 +1507,8 @@ namespace ERP_backend.Migrations
             modelBuilder.Entity("ERP_backend.Models.SanPham", b =>
                 {
                     b.Navigation("BaoCaoSanXuats");
+
+                    b.Navigation("ChiTietDonHangs");
 
                     b.Navigation("DinhMucNguyenVatLieus");
 

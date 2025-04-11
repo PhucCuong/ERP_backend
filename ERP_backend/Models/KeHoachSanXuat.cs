@@ -5,7 +5,7 @@ namespace ERP_backend.Models;
 
 public partial class KeHoachSanXuat
 {
-    public Guid MaKeHoach { get; set; }
+    public int MaKeHoach { get; set; }
 
     public Guid MaSanPham { get; set; }
 
@@ -39,9 +39,9 @@ public partial class KeHoachSanXuat
 
     public virtual ICollection<LenhSanXuat> LenhSanXuats { get; set; } = new List<LenhSanXuat>();
 
-    public virtual NhaMay MaNhaMayNavigation { get; set; } = null!;
+    public virtual NhaMay? MaNhaMayNavigation { get; set; }
 
-    public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPham? MaSanPhamNavigation { get; set; }
 
     public virtual ICollection<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieu>();
 }

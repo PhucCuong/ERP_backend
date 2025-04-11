@@ -5,9 +5,9 @@ namespace ERP_backend.Models;
 
 public partial class LenhSanXuat
 {
-    public Guid MaLenh { get; set; }
+    public int MaLenh { get; set; }
 
-    public Guid MaKeHoach { get; set; }
+    public int MaKeHoach { get; set; }
 
     public Guid MaQuyTrinh { get; set; }
 

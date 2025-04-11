@@ -33,7 +33,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/LenhGoBox/5
 		[HttpGet("{id}")]
-		public async Task<ActionResult<LenhGoBoDto>> GetLenhGoBo(Guid id)
+		public async Task<ActionResult<LenhGoBoDto>> GetLenhGoBo(int id)
 		{
 			var LenhGoBo = await _LenhGoBoService.GetById(id);
 
@@ -48,7 +48,7 @@ namespace ERP_backend.Controllers
 		// PUT: api/LenhGoBox/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutLenhGoBo(Guid id, LenhGoBoDto LenhGoBo)
+		public async Task<IActionResult> PutLenhGoBo(int id, LenhGoBoDto LenhGoBo)
 		{
 			if (id != LenhGoBo.MaLenhGoBo)
 			{
@@ -87,7 +87,7 @@ namespace ERP_backend.Controllers
 
 		// DELETE: api/LenhGoBox/5
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteLenhGoBo(Guid id)
+		public async Task<IActionResult> DeleteLenhGoBo(int id)
 		{
 			var LenhGoBo = await _LenhGoBoService.GetById(id);
 			if (LenhGoBo == null)

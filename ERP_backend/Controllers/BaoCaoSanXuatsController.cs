@@ -36,7 +36,7 @@ namespace ERP_backend.Controllers
         // GET: api/BaoCaoSanXuats/5
         [HttpGet("{id}")]
 		
-		public async Task<ActionResult<BaoCaoSanXuatDto>> GetBaoCaoSanXuat(Guid id)
+		public async Task<ActionResult<BaoCaoSanXuatDto>> GetBaoCaoSanXuat(int id)
         {
             var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
 
@@ -52,7 +52,7 @@ namespace ERP_backend.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
 		[Authorize(Roles = "Bộ phận sản xuất")]
-		public async Task<IActionResult> PutBaoCaoSanXuat(Guid id, BaoCaoSanXuatDto BaoCaoSanXuat)
+		public async Task<IActionResult> PutBaoCaoSanXuat(int id, BaoCaoSanXuatDto BaoCaoSanXuat)
         {
             if (id != BaoCaoSanXuat.MaBaoCao)
             {
@@ -92,7 +92,7 @@ namespace ERP_backend.Controllers
         // DELETE: api/BaoCaoSanXuats/5
         [HttpDelete("{id}")]
 
-		public async Task<IActionResult> DeleteBaoCaoSanXuat(Guid id)
+		public async Task<IActionResult> DeleteBaoCaoSanXuat(int id)
         {
             var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
             if (BaoCaoSanXuat == null)

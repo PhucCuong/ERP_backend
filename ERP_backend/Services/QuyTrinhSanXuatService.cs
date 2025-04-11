@@ -19,10 +19,16 @@ namespace ERP_backend.Services
 			return ConvertQuyTrinhSanXuatToDto(result);
 		}
 
-		public async Task<QuyTrinhSanXuatDto> Delete(QuyTrinhSanXuatDto input)
+		public async Task<QuyTrinhSanXuatDto?> Delete(QuyTrinhSanXuatDto input)
 		{
-			var convertData = ConvertDtoToQuyTrinhSanXuat(input);
-			var result = await _quyTrinhSanXuatRepository.Delete(convertData);
+			var existingQuyTrinhSanXuat = await _quyTrinhSanXuatRepository.GetById(input.MaQuyTrinh);
+
+			if (existingQuyTrinhSanXuat == null)
+			{
+				return null; // Hoặc throw NotFoundException
+			}
+
+			var result = await _quyTrinhSanXuatRepository.Delete(existingQuyTrinhSanXuat);
 			return ConvertQuyTrinhSanXuatToDto(result);
 		}
 
@@ -76,7 +82,7 @@ namespace ERP_backend.Services
 		}
 
 		private QuyTrinhSanXuat ConvertDtoToQuyTrinhSanXuat(QuyTrinhSanXuatDto input)
-		{
+		{	
 			var result = new QuyTrinhSanXuat();
 			if (input == null)
 			{

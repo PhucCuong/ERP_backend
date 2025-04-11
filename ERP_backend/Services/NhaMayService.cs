@@ -19,10 +19,16 @@ namespace ERP_backend.Services
 			return ConvertNhaMayToDto(result);
 		}
 
-		public async Task<NhaMayDto> Delete(NhaMayDto input)
+		public async Task<NhaMayDto?> Delete(NhaMayDto input)
 		{
-			var convertData = ConvertDtoToNhaMay(input);
-			var result = await _nhaMayRepository.Delete(convertData);
+			var existingNhaMay = await _nhaMayRepository.GetById(input.MaNhaMay);
+
+			if (existingNhaMay == null)
+			{
+				return null; // Hoặc throw NotFoundException
+			}
+
+			var result = await _nhaMayRepository.Delete(existingNhaMay);
 			return ConvertNhaMayToDto(result);
 		}
 
@@ -93,7 +99,7 @@ namespace ERP_backend.Services
 			result.DiaChi = input.DiaChi;
 			result.SoDienThoai = input.SoDienThoai;
 			result.NguoiQuanLy = input.NguoiQuanLy;
-			result.ChiPhi = (int?)input.ChiPhi;
+			result.ChiPhi = input.ChiPhi;
 			return result;
 		}
 

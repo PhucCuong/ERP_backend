@@ -17,7 +17,7 @@ namespace ERP_backend.Repositories
 			return await _context.LenhSanXuats.ToListAsync();
 		}
 
-		public async Task<LenhSanXuat> GetById(Guid id)
+		public async Task<LenhSanXuat> GetById(int id)
 		{
 			return await _context.LenhSanXuats.FindAsync(id);
 		}

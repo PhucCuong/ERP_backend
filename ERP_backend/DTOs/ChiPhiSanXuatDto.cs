@@ -7,7 +7,7 @@ public class ChiPhiSanXuatDto
 {
     public Guid MaChiPhiSanXuat { get; set; }
 
-    public Guid MaLenhSanXuat { get; set; }
+    public int MaLenhSanXuat { get; set; }
 
     public string LoaiChiPhi { get; set; } = null!;
 

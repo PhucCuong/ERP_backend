@@ -6,9 +6,9 @@ namespace ERP_backend.DTOs;
 
 public class BaoCaoSanXuatDto
 {
-    public Guid MaBaoCao { get; set; }
+    public int MaBaoCao { get; set; }
 
-    public Guid MaKeHoach { get; set; }
+    public int MaKeHoach { get; set; }
 
     public int MaSanPham { get; set; }
 

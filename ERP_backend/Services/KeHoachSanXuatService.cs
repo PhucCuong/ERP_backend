@@ -32,7 +32,7 @@ namespace ERP_backend.Services
 			return ConvertListKeHoachSanXuatToDto(result);
 		}
 
-		public async Task<KeHoachSanXuatDto> GetById(Guid id)
+		public async Task<KeHoachSanXuatDto> GetById(int id)
 		{
 			var result = await _KeHoachSanXuatRepository.GetById(id);
 			return ConvertKeHoachSanXuatToDto(result);
@@ -51,7 +51,8 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaKeHoach = input.MaKeHoach;
+            // KHSX/00001
+            result.MaKeHoach = "KHSX/" + input.MaKeHoach.ToString().PadLeft(5, '0');
 			result.MaSanPham = input.MaSanPham;
 			result.MaNhaMay = input.MaNhaMay;
 			result.SoLuong = input.SoLuong;
@@ -95,7 +96,8 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaKeHoach = input.MaKeHoach;
+			// KHSX/00001
+			//result.MaKeHoach = int.Parse(input.MaKeHoach.Substring(5,5));
 			result.MaSanPham = input.MaSanPham;
 			result.MaNhaMay = input.MaNhaMay;
 			result.SoLuong = input.SoLuong;

@@ -6,7 +6,7 @@ namespace ERP_backend.DTOs;
 
 public class KeHoachSanXuatDto
 {
-    public Guid MaKeHoach { get; set; }
+    public string? MaKeHoach { get; set; }
 
     public Guid MaSanPham { get; set; }
 
@@ -40,9 +40,9 @@ public class KeHoachSanXuatDto
 
     public virtual ICollection<LenhSanXuatDto> LenhSanXuats { get; set; } = new List<LenhSanXuatDto>();
 
-    public virtual NhaMayDto MaNhaMayNavigation { get; set; } = null!;
+    public virtual NhaMay? MaNhaMayNavigation { get; set; }
 
-    public virtual SanPhamDto MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPham? MaSanPhamNavigation { get; set; }
 
     public virtual ICollection<YeuCauNguyenVatLieuDto> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieuDto>();
 }

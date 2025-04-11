@@ -36,7 +36,7 @@ namespace ERP_backend.Controllers
 		// GET: api/KeHoachSanXuatx/5
 		[HttpGet("{id}")]
 		//[Authorize(Roles = "Bộ phận kế hoạch")]
-		public async Task<ActionResult<KeHoachSanXuatDto>> GetKeHoachSanXuat(Guid id)
+		public async Task<ActionResult<KeHoachSanXuatDto>> GetKeHoachSanXuat(int id)
 		{
 			var KeHoachSanXuat = await _keHoachSanXuatService.GetById(id);
 
@@ -52,9 +52,9 @@ namespace ERP_backend.Controllers
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
 		//[Authorize(Roles = "Bộ phận kế hoạch")]
-		public async Task<IActionResult> PutKeHoachSanXuat(Guid id, KeHoachSanXuatDto KeHoachSanXuat)
+		public async Task<IActionResult> PutKeHoachSanXuat(int id, KeHoachSanXuatDto KeHoachSanXuat)
 		{
-			if (id != KeHoachSanXuat.MaKeHoach)
+			if (id != int.Parse(KeHoachSanXuat.MaKeHoach.Substring(5, 5)))
 			{
 				return BadRequest();
 			}
@@ -87,13 +87,13 @@ namespace ERP_backend.Controllers
 
 			var result = await _keHoachSanXuatService.Add(KeHoachSanXuat);
 
-			return CreatedAtAction("GetKeHoachSanXuat", new { id = KeHoachSanXuat.MaKeHoach }, KeHoachSanXuat);
+			return Ok(result);
 		}
 
 		// DELETE: api/KeHoachSanXuatx/5
 		[HttpDelete("{id}")]
 		//[Authorize(Roles = "Bộ phận kế hoạch")]
-		public async Task<IActionResult> DeleteKeHoachSanXuat(Guid id)
+		public async Task<IActionResult> DeleteKeHoachSanXuat(int id)
 		{
 			var KeHoachSanXuat = await _keHoachSanXuatService.GetById(id);
 			if (KeHoachSanXuat == null)

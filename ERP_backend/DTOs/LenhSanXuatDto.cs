@@ -5,9 +5,9 @@ namespace ERP_backend.DTOs;
 
 public class LenhSanXuatDto
 {
-	public Guid MaLenh { get; set; }
+	public string MaLenh { get; set; }
 
-	public Guid MaKeHoach { get; set; }
+	public int MaKeHoach { get; set; }
 
 	public Guid MaQuyTrinh { get; set; }
 

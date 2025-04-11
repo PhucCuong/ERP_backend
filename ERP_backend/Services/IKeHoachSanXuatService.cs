@@ -6,7 +6,7 @@ namespace ERP_backend.Services
 	public interface IKeHoachSanXuatService
 	{
 	Task<IEnumerable<KeHoachSanXuatDto>> GetAll();
-		Task<KeHoachSanXuatDto> GetById(Guid id);
+		Task<KeHoachSanXuatDto> GetById(int id);
 		Task<KeHoachSanXuatDto> Update(KeHoachSanXuatDto input);
 		Task<KeHoachSanXuatDto> Add(KeHoachSanXuatDto input);
 		Task<KeHoachSanXuatDto> Delete(KeHoachSanXuatDto input);

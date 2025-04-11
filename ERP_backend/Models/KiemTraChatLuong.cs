@@ -23,5 +23,7 @@ public partial class KiemTraChatLuong
 
     public DateTime? NgayChinhSua { get; set; }
 
+    public virtual ICollection<KetQuaKiemTra> KetQuaKiemTras { get; set; } = new List<KetQuaKiemTra>();
+
     public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
 }

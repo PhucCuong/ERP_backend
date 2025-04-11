@@ -17,7 +17,7 @@ namespace ERP_backend.Repositories
 			return await _context.KeHoachSanXuats.ToListAsync();
 		}
 
-		public async Task<KeHoachSanXuat> GetById(Guid id)
+		public async Task<KeHoachSanXuat> GetById(int id)
 		{
 			return await _context.KeHoachSanXuats.FindAsync(id);
 		}

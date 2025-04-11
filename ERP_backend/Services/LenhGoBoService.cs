@@ -32,7 +32,7 @@ namespace ERP_backend.Services
 			return ConvertListLenhGoBoToDto(result);
 		}
 
-		public async Task<LenhGoBoDto> GetById(Guid id)
+		public async Task<LenhGoBoDto> GetById(int id)
 		{
 			var result = await _LenhGoBoRepository.GetById(id);
 			return ConvertLenhGoBoToDto(result);

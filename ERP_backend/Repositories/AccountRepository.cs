@@ -98,7 +98,26 @@ namespace ERP_backend.Repositories
 			};
 			return await userManager.CreateAsync(user, model.Password);
 		}
-		
+		public async Task<string> ChangePasswordAsync(ChangePassword model)
+		{
+			var user = await userManager.FindByNameAsync(model.UserName);
+			if (user == null)
+			{
+				return "User not found";
+			}
+
+			var passwordValid = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
+			if (!passwordValid)
+			{
+				return "Old password is incorrect";
+			}
+			var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+			if (!result.Succeeded)
+			{
+				return string.Join("; ", result.Errors.Select(e => e.Description));
+			}
+			return "Password changed successfully";
+		}
 
 	}
 }

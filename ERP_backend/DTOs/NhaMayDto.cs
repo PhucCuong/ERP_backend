@@ -17,7 +17,7 @@ public class NhaMayDto
 
     public string? NguoiQuanLy { get; set; }
 
-    public long? ChiPhi { get; set; }
+    public decimal ChiPhi { get; set; }
 
 
     public virtual ICollection<BaoTriDto> BaoTris { get; set; } = new List<BaoTriDto>();

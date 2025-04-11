@@ -8,6 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +37,7 @@ builder.Services.AddTransient<INguyenVatLieuRepository, NguyenVatLieuRepository>
 builder.Services.AddTransient<IKhoRepository, KhoRepository>();
 builder.Services.AddTransient<ITonKhoRepository, TonKhoRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
+builder.Services.AddScoped<IDonHangRepository, DonHangRepository>();
 // Register Service to DI
 builder.Services.AddTransient<IBaoCaoSanXuatService, BaoCaoSanXuatService>();
 builder.Services.AddTransient<IBaoTriService, BaoTriService>();
@@ -56,6 +59,8 @@ builder.Services.AddTransient<ISanPhamImgService, SanPhamImgService>();
 
 builder.Services.AddTransient<IKhoService, KhoService>();
 builder.Services.AddTransient<ITonKhoService, TonKhoService>();
+builder.Services.AddTransient<IDonHangService, DonHangService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -63,14 +68,42 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
-
+builder.Services.AddHttpContextAccessor();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 builder.Services.AddAuthentication(options => {
+
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 	options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
+
+	options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+}).AddCookie().AddGoogle(
+	GoogleDefaults.AuthenticationScheme,options =>
+	{
+		options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
+		options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
+		options.CallbackPath = "/signin-google";
+
+		options.CorrelationCookie.SameSite = SameSiteMode.Lax;
+		options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
+
+		options.Events.OnRemoteFailure = context =>
+		{
+			Console.WriteLine($"Google authentication failed: {context.Failure?.Message}");
+			if (context.Failure != null)
+			{
+				Console.WriteLine($"StackTrace: {context.Failure.StackTrace}");
+				Console.WriteLine($"InnerException: {context.Failure.InnerException}");
+			}
+			context.HandleResponse();
+			context.Response.Redirect("/api/auth/error?message=GoogleAuthFailed");
+			return Task.CompletedTask;
+		};
+	}).AddJwtBearer(options => {
 	options.SaveToken = true;
-	options.RequireHttpsMetadata = false;
+	options.RequireHttpsMetadata = false;	
 	options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
 	{
 		ValidateIssuer = true,
@@ -80,11 +113,10 @@ builder.Services.AddAuthentication(options => {
 		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
 	};
 });
-builder.Services.AddScoped<RoleManager<IdentityRole<Guid>>>();
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<QlySanXuatErpContext>()
 	.AddDefaultTokenProviders();
+
 
 builder.Services.AddDbContext<QlySanXuatErpContext>(option =>
 {
@@ -117,14 +149,23 @@ builder.Services.AddSwaggerGen(option =>
 		}
 	});
 });
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin() // Cho phép tất cả các origin (frontend)
-                        .AllowAnyMethod() // Cho phép tất cả các phương thức (GET, POST, PUT, DELETE)
-                        .AllowAnyHeader()); // Cho phép tất cả header
+	options.AddPolicy("AllowAll",
+		builder => builder.AllowAnyOrigin()
+						  .AllowAnyMethod()
+						  .AllowAnyHeader());
 });
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.Cookie.SameSite = SameSiteMode.Lax; // hoặc None nếu dùng HTTPS
+	options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Bắt buộc HTTPS
+});
+builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -134,8 +175,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowAll");
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+	MinimumSameSitePolicy = SameSiteMode.Lax 
+});
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(
+		Path.Combine(builder.Environment.WebRootPath, "Uploads")),
+	RequestPath = "/Uploads"
+});
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

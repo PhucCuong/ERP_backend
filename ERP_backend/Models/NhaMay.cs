@@ -17,7 +17,7 @@ public partial class NhaMay
 
     public string? NguoiQuanLy { get; set; }
 
-    public int? ChiPhi { get; set; }
+    public decimal ChiPhi { get; set; }
 
     public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
 

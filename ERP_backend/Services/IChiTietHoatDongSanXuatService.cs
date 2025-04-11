@@ -10,5 +10,7 @@ namespace ERP_backend.Services
 		Task<ChiTietHoatDongSanXuatDto> Update(ChiTietHoatDongSanXuatDto input);
 		Task<ChiTietHoatDongSanXuatDto> Add(ChiTietHoatDongSanXuatDto input);
 		Task<ChiTietHoatDongSanXuatDto> Delete(ChiTietHoatDongSanXuatDto input);
+		Task<ChiTietHoatDongSanXuatDto> UploadFile(Guid id, IFormFile file);
+		Task<string> UploadFileOnly(Guid id, IFormFile file);
 	}
 }

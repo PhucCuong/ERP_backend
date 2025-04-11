@@ -35,7 +35,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/LenhSanXuatx/5
 		[HttpGet("{id}")]
-		public async Task<ActionResult<LenhSanXuatDto>> GetLenhSanXuat(Guid id)
+		public async Task<ActionResult<LenhSanXuatDto>> GetLenhSanXuat(int id)
 		{
 			var LenhSanXuat = await _LenhSanXuatService.GetById(id);
 
@@ -50,9 +50,9 @@ namespace ERP_backend.Controllers
 		// PUT: api/LenhSanXuatx/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutLenhSanXuat(Guid id, LenhSanXuatDto LenhSanXuat)
+		public async Task<IActionResult> PutLenhSanXuat(int id, LenhSanXuatDto LenhSanXuat)
 		{
-			if (id != LenhSanXuat.MaLenh)
+			if (id != int.Parse(LenhSanXuat.MaLenh.Substring(4, 5)))
 			{
 				return BadRequest();
 			}
@@ -89,7 +89,7 @@ namespace ERP_backend.Controllers
 
 		// DELETE: api/LenhSanXuatx/5
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteLenhSanXuat(Guid id)
+		public async Task<IActionResult> DeleteLenhSanXuat(int id)
 		{
 			var LenhSanXuat = await _LenhSanXuatService.GetById(id);
 			if (LenhSanXuat == null)

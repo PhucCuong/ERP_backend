@@ -17,7 +17,7 @@ namespace ERP_backend.Repositories
 			return await _context.LenhGoBos.ToListAsync();
 		}
 
-		public async Task<LenhGoBo> GetById(Guid id)
+		public async Task<LenhGoBo> GetById(int id)
 		{
 			return await _context.LenhGoBos.FindAsync(id);
 		}

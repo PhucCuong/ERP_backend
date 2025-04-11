@@ -7,7 +7,7 @@ public partial class YeuCauNguyenVatLieu
 {
     public Guid MaYeuCauNvl { get; set; }
 
-    public Guid MaKeHoach { get; set; }
+    public int MaKeHoach { get; set; }
 
     public Guid MaNguyenVatLieu { get; set; }
 
