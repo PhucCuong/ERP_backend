@@ -84,7 +84,7 @@ namespace ERP_backend.Controllers
 
 			var result = await _LenhSanXuatService.Add(LenhSanXuat);
 
-			return CreatedAtAction("GetLenhSanXuat", new { id = LenhSanXuat.MaLenh }, LenhSanXuat);
+			return Ok(result);
 		}
 
 		// DELETE: api/LenhSanXuatx/5

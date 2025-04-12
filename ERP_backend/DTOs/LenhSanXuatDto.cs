@@ -5,7 +5,7 @@ namespace ERP_backend.DTOs;
 
 public class LenhSanXuatDto
 {
-	public string MaLenh { get; set; }
+	public string? MaLenh { get; set; }
 
 	public int MaKeHoach { get; set; }
 
@@ -30,9 +30,9 @@ public class LenhSanXuatDto
 	public virtual ICollection<ChiPhiSanXuatDto> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuatDto>();
 
 
-    public virtual KeHoachSanXuatDto MaKeHoachNavigation { get; set; } = null!;
+    public virtual KeHoachSanXuatDto? MaKeHoachNavigation { get; set; }
 
-    public virtual QuyTrinhSanXuatDto MaQuyTrinhNavigation { get; set; } = null!;
+    public virtual QuyTrinhSanXuatDto? MaQuyTrinhNavigation { get; set; }
 
-    public virtual SanPhamDto MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPhamDto? MaSanPhamNavigation { get; set; }
 }

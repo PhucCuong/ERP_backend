@@ -95,7 +95,6 @@ namespace ERP_backend.Services
 				return result;
 			}
 			// LSX/00001
-			result.MaLenh = int.Parse(input.MaLenh.Substring(4,5));
 			result.MaKeHoach = input.MaKeHoach;
 			result.MaQuyTrinh = input.MaQuyTrinh;
 			result.MaSanPham = input.MaSanPham;
