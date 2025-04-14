@@ -19,11 +19,10 @@ namespace ERP_backend.Services
 			return ConvertLenhSanXuatToDto(result);
 		}
 
-		public async Task<LenhSanXuatDto> Delete(LenhSanXuatDto input)
+		public async Task<bool> Delete(int id)
 		{
-			var convertData = ConvertDtoToLenhSanXuat(input);
-			var result = await _lenhSanXuatRepository.Delete(convertData);
-			return ConvertLenhSanXuatToDto(result);
+			var result = await _lenhSanXuatRepository.Delete(id);
+			return result;
 		}
 
 		public async Task<IEnumerable<LenhSanXuatDto>> GetAll()

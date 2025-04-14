@@ -8,6 +8,6 @@ namespace ERP_backend.Repositories
 		Task<LenhSanXuat> GetById(int id);
 		Task<LenhSanXuat> Update(LenhSanXuat input);
 		Task<LenhSanXuat> Add(LenhSanXuat input);
-		Task<LenhSanXuat> Delete(LenhSanXuat input);
+		Task<bool> Delete(int id);
     }
 }

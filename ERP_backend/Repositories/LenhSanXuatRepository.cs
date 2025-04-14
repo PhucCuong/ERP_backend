@@ -36,11 +36,22 @@ namespace ERP_backend.Repositories
 			return result;
 		}
 
-		public async Task<LenhSanXuat> Delete(LenhSanXuat input)
+		public async Task<bool> Delete(int id)
 		{
-			var result = _context.LenhSanXuats.Remove(input).Entity;
-			await _context.SaveChangesAsync();
-			return result;
-		}
+            // Tìm đối tượng LenhSanXuat theo id
+            var lenhsx = await _context.LenhSanXuats.FindAsync(id);
+
+            // Nếu không tìm thấy thì trả về false
+            if (lenhsx == null)
+            {
+                return false;
+            }
+
+            // Xóa đối tượng
+            _context.LenhSanXuats.Remove(lenhsx);
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
+        }
     }
 }

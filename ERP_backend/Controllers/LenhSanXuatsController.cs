@@ -91,15 +91,9 @@ namespace ERP_backend.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteLenhSanXuat(int id)
 		{
-			var LenhSanXuat = await _LenhSanXuatService.GetById(id);
-			if (LenhSanXuat == null)
-			{
-				return NotFound();
-			}
+			var result = await _LenhSanXuatService.Delete(id);
 
-			await _LenhSanXuatService.Delete(LenhSanXuat);
-
-			return NoContent();
+			return Ok(result);
 		}
     }
 

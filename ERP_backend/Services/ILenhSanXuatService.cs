@@ -9,6 +9,6 @@ namespace ERP_backend.Services
 		Task<LenhSanXuatDto> GetById(int id);
 		Task<LenhSanXuatDto> Update(LenhSanXuatDto input);
 		Task<LenhSanXuatDto> Add(LenhSanXuatDto input);
-		Task<LenhSanXuatDto> Delete(LenhSanXuatDto input);
+		Task<bool> Delete(int input);
     }
 }
