@@ -18,5 +18,6 @@ public partial class DonHang
     public string? GhiChu { get; set; }
 
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
+
     public virtual AspNetUser MaKhachHangNavigation { get; set; } = null!;
 }

@@ -117,7 +117,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<QlySanXuatErpContext>()
 	.AddDefaultTokenProviders();
 
-
 builder.Services.AddDbContext<QlySanXuatErpContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

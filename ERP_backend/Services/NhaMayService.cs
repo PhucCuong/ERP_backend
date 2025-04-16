@@ -63,10 +63,7 @@ namespace ERP_backend.Services
 			result.DiaChi = input.DiaChi;
 			result.SoDienThoai = input.SoDienThoai;
 			result.NguoiQuanLy = input.NguoiQuanLy;
-			result.ChiPhi = input.ChiPhi;
-
-
-
+			result.ChiPhi = input.ChiPhi ?? 0;
 			return result;
 		}
 

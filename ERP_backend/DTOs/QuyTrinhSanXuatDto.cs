@@ -11,8 +11,9 @@ public class QuyTrinhSanXuatDto
     public string? MoTa { get; set; }
 
     public string? TrangThai { get; set; }
+	public Guid? MaSanPham { get; set; }
 
-    public virtual ICollection<ChiTietHoatDongSanXuatDto> ChiTietHoatDongSanXuats { get; set; } = new List<ChiTietHoatDongSanXuatDto>();
+	public virtual ICollection<ChiTietHoatDongSanXuatDto> ChiTietHoatDongSanXuats { get; set; } = new List<ChiTietHoatDongSanXuatDto>();
 
     public virtual ICollection<LenhSanXuatDto> LenhSanXuats { get; set; } = new List<LenhSanXuatDto>();
 }

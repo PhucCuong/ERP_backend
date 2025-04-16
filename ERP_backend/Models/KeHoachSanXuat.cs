@@ -39,9 +39,9 @@ public partial class KeHoachSanXuat
 
     public virtual ICollection<LenhSanXuat> LenhSanXuats { get; set; } = new List<LenhSanXuat>();
 
-    public virtual NhaMay? MaNhaMayNavigation { get; set; }
+    public virtual NhaMay MaNhaMayNavigation { get; set; } = null!;
 
-    public virtual SanPham? MaSanPhamNavigation { get; set; }
+    public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
 
     public virtual ICollection<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieu>();
 }

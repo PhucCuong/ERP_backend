@@ -61,6 +61,7 @@ namespace ERP_backend.Services
 			result.TenQuyTrinh = input.TenQuyTrinh;
 			result.MoTa = input.MoTa;
 			result.TrangThai = input.TrangThai;
+			result.MaSanPham = input.MaSanPham;
 			return result;
 		}
 
@@ -92,6 +93,7 @@ namespace ERP_backend.Services
 			result.TenQuyTrinh = input.TenQuyTrinh;
 			result.MoTa = input.MoTa;
 			result.TrangThai = input.TrangThai;
+			result.MaSanPham = input.MaSanPham;
 			return result;
 		}
 

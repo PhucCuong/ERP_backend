@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP_backend.Models;
@@ -16,7 +16,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
         : base(options)
     {
     }
-
 
     public virtual DbSet<BaoCaoSanXuat> BaoCaoSanXuats { get; set; }
 
@@ -46,6 +45,8 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     public virtual DbSet<NguyenVatLieu> NguyenVatLieus { get; set; }
 
+    public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
+
     public virtual DbSet<NhaMay> NhaMays { get; set; }
 
     public virtual DbSet<NhapKho> NhapKhos { get; set; }
@@ -62,14 +63,12 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-     
-
-        modelBuilder.Entity<BaoCaoSanXuat>(entity =>
+		base.OnModelCreating(modelBuilder);
+		modelBuilder.Entity<BaoCaoSanXuat>(entity =>
         {
             entity.HasKey(e => e.MaBaoCao).HasName("PK__BaoCaoSa__25A9188C98FDDD4C");
 
@@ -83,7 +82,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
                 .HasComputedColumnSql("([SoLuongSxThucTe]/[SoLuongSxMucTieu])", true)
                 .HasColumnType("decimal(38, 20)");
             entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");  
             entity.Property(e => e.SoLuongSxMucTieu).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.SoLuongSxThucTe).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TenSanPham).HasMaxLength(255);
@@ -204,7 +203,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
         modelBuilder.Entity<DonHang>(entity =>
         {
-            entity.HasKey(e => e.MaDonHang).HasName("PK__DonHang__129584ADEF26CBBC");
+            entity.HasKey(e => e.MaDonHang).HasName("PK__DonHang__129584ADE928C3D1");
 
             entity.ToTable("DonHang");
 
@@ -376,9 +375,24 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.MaVach).HasMaxLength(50);
             entity.Property(e => e.NhomNguyenVatLieu).HasMaxLength(100);
             entity.Property(e => e.TenNguyenVatLieu).HasMaxLength(255);
+            entity.Property(e => e.TonKhoHienCo).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TonKhoToiDa).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TonKhoToiThieu).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TrangThai).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<NhaCungCap>(entity =>
+        {
+            entity.HasKey(e => e.MaNhaCungCap).HasName("PK__NhaCungC__53DA9205C1B278CD");
+
+            entity.ToTable("NhaCungCap");
+
+            entity.Property(e => e.MaNhaCungCap).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.DiaChi).HasMaxLength(500);
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.GhiChu).HasMaxLength(1000);
+            entity.Property(e => e.SoDienThoai).HasMaxLength(20);
+            entity.Property(e => e.TenNhaCungCap).HasMaxLength(255);
         });
 
         modelBuilder.Entity<NhaMay>(entity =>
@@ -426,6 +440,10 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.MaQuyTrinh).HasDefaultValueSql("(newid())");
             entity.Property(e => e.TenQuyTrinh).HasMaxLength(255);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
+
+            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.QuyTrinhSanXuats)
+                .HasForeignKey(d => d.MaSanPham)
+                .HasConstraintName("FK_QuyTrinhSanXuat_SanPham");
         });
 
         modelBuilder.Entity<SanPham>(entity =>
@@ -495,6 +513,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
                 .HasColumnName("MaYeuCauNVL");
             entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.SoLuongCanThiet).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.TongTien).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TrangThaiDonHang).HasMaxLength(50);
 
             entity.HasOne(d => d.MaKeHoachNavigation).WithMany(p => p.YeuCauNguyenVatLieus)

@@ -39,7 +39,5 @@ public partial class AspNetUser
 
     public string HoTen { get; set; } = null!;
 
-
     public virtual ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
-
 }

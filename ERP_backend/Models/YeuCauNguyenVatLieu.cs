@@ -21,6 +21,8 @@ public partial class YeuCauNguyenVatLieu
 
     public DateTime? NgayTao { get; set; }
 
+    public decimal? TongTien { get; set; }
+
     public virtual KeHoachSanXuat MaKeHoachNavigation { get; set; } = null!;
 
     public virtual NguyenVatLieu MaNguyenVatLieuNavigation { get; set; } = null!;

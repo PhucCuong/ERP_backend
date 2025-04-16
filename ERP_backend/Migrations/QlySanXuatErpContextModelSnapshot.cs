@@ -155,7 +155,7 @@ namespace ERP_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AspNetUser");
+                    b.ToTable("AspNetUser", (string)null);
                 });
 
             modelBuilder.Entity("ERP_backend.Models.BaoCaoSanXuat", b =>
@@ -342,13 +342,17 @@ namespace ERP_backend.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<byte[]>("FileData")
-                        .IsRequired()
                         .HasColumnType("VARBINARY(MAX)")
                         .HasColumnName("FileData");
 
                     b.Property<string>("GiaiDoanSanXuat")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LoaiTinhThoiGian")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("MaQuyTrinh")
                         .HasColumnType("uniqueidentifier");
@@ -779,10 +783,8 @@ namespace ERP_backend.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<decimal>("ChiPhi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(255.00m);
+                    b.Property<int?>("ChiPhi")
+                        .HasColumnType("int");
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(500)

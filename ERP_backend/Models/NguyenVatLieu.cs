@@ -23,6 +23,8 @@ public partial class NguyenVatLieu
 
     public string? TrangThai { get; set; }
 
+    public decimal? TonKhoHienCo { get; set; }
+
     public virtual ICollection<DinhMucNguyenVatLieu> DinhMucNguyenVatLieus { get; set; } = new List<DinhMucNguyenVatLieu>();
 
     public virtual ICollection<TonKho> TonKhos { get; set; } = new List<TonKho>();
