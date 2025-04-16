@@ -170,6 +170,64 @@ namespace ERP_backend.Controllers
 			return NoContent();
 		}
 
+        [HttpPost("kiem-tra-thu-tu")]
+        public async Task<IActionResult> KiemTraThuTu([FromBody] CheckThuTuHoatDongDto request)
+        {
+            var hoatDongList = await _chiTietHoatDongSanXuatService.GetAll();
+            var hoatDongsCungQuyTrinh = hoatDongList
+                .Where(hd => hd.MaQuyTrinh == request.MaQuyTrinh)
+                .ToList();
+
+            // Nếu danh sách rỗng thì cho phép thêm với thuTu = 1
+            if (!hoatDongsCungQuyTrinh.Any())
+            {
+                if (request.ThuTu != 1)
+                {
+                    return Ok(new
+                    {
+                        success = false,
+                        message = "Chưa có bước nào trong quy trình này. Hãy nhập số thứ tự là: 1"
+                    });
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Thứ tự hợp lệ, có thể thêm mới."
+                });
+            }
+
+            var maxThuTu = hoatDongsCungQuyTrinh.Max(hd => hd.ThuTu);
+
+            // Kiểm tra trùng thứ tự
+            var isTrungThuTu = hoatDongsCungQuyTrinh.Any(hd => hd.ThuTu == request.ThuTu);
+            if (isTrungThuTu)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    message = $"Đã tồn tại bước với thứ tự này. Thứ tự lớn nhất hiện tại của quy trình là {maxThuTu}."
+                });
+            }
+
+            // Kiểm tra khoảng cách không hợp lệ
+            if (request.ThuTu > maxThuTu + 1)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    message = $"Hãy nhập số thứ tự là: {maxThuTu + 1}"
+                });
+            }
+
+            return Ok(new
+            {
+                success = true,
+                message = "Thứ tự hợp lệ, có thể thêm mới."
+            });
+        }
+
+
         //private bool ChiTietHoatDongSanXuatExists(Guid id)
         //{
         //    return _context.ChiTietHoatDongSanXuats.Any(e => e.MaHoatDong == id);
