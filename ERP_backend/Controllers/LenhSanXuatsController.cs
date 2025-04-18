@@ -95,6 +95,14 @@ namespace ERP_backend.Controllers
 
 			return Ok(result);
 		}
+
+		[HttpPost("add-list-workorder")]
+		public async Task<IActionResult> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq)
+		{
+			var result = await _LenhSanXuatService.AddListWorkOrder(modelReq);
+
+            return Ok(result);
+		}
     }
 
     //private bool LenhSanXuatExists(Guid id)

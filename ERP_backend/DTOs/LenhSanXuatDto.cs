@@ -27,7 +27,9 @@ public class LenhSanXuatDto
 
 	public string KhuVucSanXuat { get; set; } = null!;
 
-	public virtual ICollection<ChiPhiSanXuatDto> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuatDto>();
+    public Guid? MaHoatDong { get; set; }
+
+    public virtual ICollection<ChiPhiSanXuatDto> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuatDto>();
 
 
     public virtual KeHoachSanXuatDto? MaKeHoachNavigation { get; set; }

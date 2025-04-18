@@ -27,6 +27,8 @@ public partial class LenhSanXuat
 
     public string KhuVucSanXuat { get; set; } = null!;
 
+    public Guid? MaHoatDong { get; set; }
+
     public virtual ICollection<ChiPhiSanXuat> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuat>();
 
     public virtual KeHoachSanXuat MaKeHoachNavigation { get; set; } = null!;

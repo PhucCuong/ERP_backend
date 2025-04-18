@@ -16,4 +16,10 @@ public partial class NhaCungCap
     public string? Email { get; set; }
 
     public string? GhiChu { get; set; }
+
+    public Guid? MaNguyenVatLieu { get; set; }
+
+    public virtual NguyenVatLieu? MaNguyenVatLieuNavigation { get; set; }
+
+    public virtual ICollection<TonKho> TonKhos { get; set; } = new List<TonKho>();
 }

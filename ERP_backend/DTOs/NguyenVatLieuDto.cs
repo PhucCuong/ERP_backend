@@ -20,8 +20,9 @@ public class NguyenVatLieuDto
     public decimal? TonKhoToiThieu { get; set; }
 
     public decimal? TonKhoToiDa { get; set; }
+	public decimal? TonKhoHienCo { get; set; }
 
-    public string? TrangThai { get; set; }
+	public string? TrangThai { get; set; }
 
     public virtual ICollection<DinhMucNguyenVatLieuDto> DinhMucNguyenVatLieus { get; set; } = new List<DinhMucNguyenVatLieuDto>();
 

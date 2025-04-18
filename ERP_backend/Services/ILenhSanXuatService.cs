@@ -10,5 +10,7 @@ namespace ERP_backend.Services
 		Task<LenhSanXuatDto> Update(LenhSanXuatDto input);
 		Task<LenhSanXuatDto> Add(LenhSanXuatDto input);
 		Task<bool> Delete(int input);
+
+		Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq);
     }
 }

@@ -124,6 +124,12 @@ namespace ERP_backend.Services
 			return result;
 		}
 
+		public async Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq)
+		{
+			var result = await _lenhSanXuatRepository.AddListWorkOrder(modelReq);
+            return true;
+        }
+
     }
 
 }

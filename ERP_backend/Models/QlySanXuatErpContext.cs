@@ -63,12 +63,12 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-		base.OnModelCreating(modelBuilder);
-		modelBuilder.Entity<BaoCaoSanXuat>(entity =>
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<BaoCaoSanXuat>(entity =>
         {
             entity.HasKey(e => e.MaBaoCao).HasName("PK__BaoCaoSa__25A9188C98FDDD4C");
 
@@ -82,7 +82,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
                 .HasComputedColumnSql("([SoLuongSxThucTe]/[SoLuongSxMucTieu])", true)
                 .HasColumnType("decimal(38, 20)");
             entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");  
+            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.SoLuongSxMucTieu).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.SoLuongSxThucTe).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TenSanPham).HasMaxLength(255);
@@ -393,6 +393,10 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.GhiChu).HasMaxLength(1000);
             entity.Property(e => e.SoDienThoai).HasMaxLength(20);
             entity.Property(e => e.TenNhaCungCap).HasMaxLength(255);
+
+            entity.HasOne(d => d.MaNguyenVatLieuNavigation).WithMany(p => p.NhaCungCaps)
+                .HasForeignKey(d => d.MaNguyenVatLieu)
+                .HasConstraintName("FK_NhaCungCap_NguyenVatLieu");
         });
 
         modelBuilder.Entity<NhaMay>(entity =>
@@ -496,6 +500,10 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
                 .HasForeignKey(d => d.MaNguyenVatLieu)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TonKho_NV");
+
+            entity.HasOne(d => d.MaNhaCungCapNavigation).WithMany(p => p.TonKhos)
+                .HasForeignKey(d => d.MaNhaCungCap)
+                .HasConstraintName("FK_TonKho_NhaCungCap");
         });
 
         modelBuilder.Entity<YeuCauNguyenVatLieu>(entity =>
@@ -503,8 +511,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.HasKey(e => e.MaYeuCauNvl).HasName("PK__YeuCauNg__BBF67A9390972796");
 
             entity.ToTable("YeuCauNguyenVatLieu");
-
-            entity.HasIndex(e => e.MaKeHoach, "IX_YeuCauNguyenVatLieu_MaKeHoach");
 
             entity.HasIndex(e => e.MaNguyenVatLieu, "IX_YeuCauNguyenVatLieu_MaNguyenVqatLieu");
 
@@ -514,12 +520,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.SoLuongCanThiet).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.TongTien).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.TrangThaiDonHang).HasMaxLength(50);
-
-            entity.HasOne(d => d.MaKeHoachNavigation).WithMany(p => p.YeuCauNguyenVatLieus)
-                .HasForeignKey(d => d.MaKeHoach)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__YeuCauNgu__MaKeH__2BFE89A6");
 
             entity.HasOne(d => d.MaNguyenVatLieuNavigation).WithMany(p => p.YeuCauNguyenVatLieus)
                 .HasForeignKey(d => d.MaNguyenVatLieu)

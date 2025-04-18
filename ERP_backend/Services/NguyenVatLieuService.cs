@@ -59,6 +59,7 @@ namespace ERP_backend.Services
 			result.GiaNhap = input.GiaNhap;
 			result.TonKhoToiThieu = input.TonKhoToiThieu;
 			result.TonKhoToiDa = input.TonKhoToiDa;
+			result.TonKhoHienCo= input.TonKhoHienCo;
 			result.TrangThai = input.TrangThai;
 
 
@@ -98,6 +99,7 @@ namespace ERP_backend.Services
 			result.GiaNhap = input.GiaNhap;
 			result.TonKhoToiThieu = input.TonKhoToiThieu;
 			result.TonKhoToiDa = input.TonKhoToiDa;
+			result.TonKhoHienCo = input.TonKhoHienCo;
 			result.TrangThai = input.TrangThai;
 
 			return result;

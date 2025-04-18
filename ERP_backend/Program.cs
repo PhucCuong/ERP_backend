@@ -38,6 +38,9 @@ builder.Services.AddTransient<IKhoRepository, KhoRepository>();
 builder.Services.AddTransient<ITonKhoRepository, TonKhoRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IDonHangRepository, DonHangRepository>();
+
+builder.Services.AddScoped<INhaCungCapRepository, NhaCungCapRepository>();
+builder.Services.AddScoped<IYeuCauNguyenVatLieuRepository, YeuCauNguyenVatLieuRepository>();
 // Register Service to DI
 builder.Services.AddTransient<IBaoCaoSanXuatService, BaoCaoSanXuatService>();
 builder.Services.AddTransient<IBaoTriService, BaoTriService>();
@@ -60,7 +63,8 @@ builder.Services.AddTransient<ISanPhamImgService, SanPhamImgService>();
 builder.Services.AddTransient<IKhoService, KhoService>();
 builder.Services.AddTransient<ITonKhoService, TonKhoService>();
 builder.Services.AddTransient<IDonHangService, DonHangService>();
-
+builder.Services.AddScoped<INhaCungCapService, NhaCungCapService>();
+builder.Services.AddScoped<IYeuCauNguyenVatLieuService, YeuCauNguyenVatLieuService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -42,6 +42,4 @@ public partial class KeHoachSanXuat
     public virtual NhaMay MaNhaMayNavigation { get; set; } = null!;
 
     public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
-
-    public virtual ICollection<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieu>();
 }

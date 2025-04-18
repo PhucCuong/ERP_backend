@@ -27,6 +27,8 @@ public partial class NguyenVatLieu
 
     public virtual ICollection<DinhMucNguyenVatLieu> DinhMucNguyenVatLieus { get; set; } = new List<DinhMucNguyenVatLieu>();
 
+    public virtual ICollection<NhaCungCap> NhaCungCaps { get; set; } = new List<NhaCungCap>();
+
     public virtual ICollection<TonKho> TonKhos { get; set; } = new List<TonKho>();
 
     public virtual ICollection<YeuCauNguyenVatLieu> YeuCauNguyenVatLieus { get; set; } = new List<YeuCauNguyenVatLieu>();

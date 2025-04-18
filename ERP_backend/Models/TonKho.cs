@@ -15,7 +15,11 @@ public partial class TonKho
 
     public DateTime? NgayCapNhatCuoi { get; set; }
 
+    public Guid? MaNhaCungCap { get; set; }
+
     public virtual Kho MaKhoNavigation { get; set; } = null!;
 
     public virtual NguyenVatLieu MaNguyenVatLieuNavigation { get; set; } = null!;
+
+    public virtual NhaCungCap? MaNhaCungCapNavigation { get; set; }
 }

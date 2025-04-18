@@ -1,4 +1,5 @@
-﻿using ERP_backend.Models;
+﻿using ERP_backend.DTOs;
+using ERP_backend.Models;
 
 namespace ERP_backend.Repositories
 {
@@ -9,5 +10,7 @@ namespace ERP_backend.Repositories
 		Task<LenhSanXuat> Update(LenhSanXuat input);
 		Task<LenhSanXuat> Add(LenhSanXuat input);
 		Task<bool> Delete(int id);
-    }
+
+        Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq);
+	}
 }

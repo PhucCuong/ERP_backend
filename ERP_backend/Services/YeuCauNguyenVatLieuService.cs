@@ -52,12 +52,10 @@ namespace ERP_backend.Services
 				return result;
 			}
 			result.MaYeuCauNvl = input.MaYeuCauNvl;
-			result.MaKeHoach = input.MaKeHoach;
 			result.MaNguyenVatLieu = input.MaNguyenVatLieu;
 			result.SoLuongCanThiet = input.SoLuongCanThiet;
 			result.MaNhaCungCap = input.MaNhaCungCap;
 			result.NgayGiaoHangDuKien = input.NgayGiaoHangDuKien;
-			result.TrangThaiDonHang = input.TrangThaiDonHang;
 			result.NgayTao = input.NgayTao;
 			return result;
 		}
@@ -87,12 +85,10 @@ namespace ERP_backend.Services
 				return result;
 			}
 			result.MaYeuCauNvl = input.MaYeuCauNvl;
-			result.MaKeHoach = input.MaKeHoach;
 			result.MaNguyenVatLieu = input.MaNguyenVatLieu;
 			result.SoLuongCanThiet = input.SoLuongCanThiet;
 			result.MaNhaCungCap = input.MaNhaCungCap;
 			result.NgayGiaoHangDuKien = input.NgayGiaoHangDuKien;
-			result.TrangThaiDonHang = input.TrangThaiDonHang;
 			result.NgayTao = input.NgayTao;
 			return result;
 		}

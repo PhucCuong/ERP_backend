@@ -17,11 +17,6 @@ public class YeuCauNguyenVatLieuDto
 
     public DateTime? NgayGiaoHangDuKien { get; set; }
 
-    public string TrangThaiDonHang { get; set; } = null!;
-
     public DateTime? NgayTao { get; set; }
 
-    public virtual KeHoachSanXuatDto MaKeHoachNavigation { get; set; } = null!;
-
-    public virtual NguyenVatLieuDto MaNguyenVatLieuNavigation { get; set; } = null!;
 }
