@@ -103,6 +103,13 @@ namespace ERP_backend.Controllers
 
             return Ok(result);
 		}
+
+		[HttpGet("get-workorder-list-by-plant-code/{plantcode}")]
+		public async Task<IActionResult> GetWorkOrderListByPlantCode(int plantcode)
+		{
+			var result = await _LenhSanXuatService.GetWorkOrderListByPlantCode(plantcode);
+			return Ok(result);
+        }
     }
 
     //private bool LenhSanXuatExists(Guid id)

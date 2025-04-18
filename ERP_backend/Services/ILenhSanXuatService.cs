@@ -12,5 +12,6 @@ namespace ERP_backend.Services
 		Task<bool> Delete(int input);
 
 		Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq);
+        Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode);
     }
 }

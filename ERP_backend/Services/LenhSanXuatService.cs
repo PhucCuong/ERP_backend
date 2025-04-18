@@ -130,6 +130,12 @@ namespace ERP_backend.Services
             return true;
         }
 
+        public async Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode)
+		{
+			var result = await _lenhSanXuatRepository.GetWorkOrderListByPlantCode(plantCode);
+			return result;
+        }
+
     }
 
 }

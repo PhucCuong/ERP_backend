@@ -92,5 +92,37 @@ namespace ERP_backend.Repositories
             return true;
         }
 
+        public async Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode)
+        {
+            var query = from lsx in _context.LenhSanXuats
+                        join hdsx in _context.ChiTietHoatDongSanXuats
+                            on lsx.MaHoatDong equals hdsx.MaHoatDong
+                        join qt in _context.QuyTrinhSanXuats
+                            on hdsx.MaQuyTrinh equals qt.MaQuyTrinh
+                        join sp in _context.SanPhams
+                            on qt.MaSanPham equals sp.MaSanPham
+                        where lsx.MaKeHoach == plantCode
+                        select new WorkOrder
+                        {
+                            MaLenh = "LSX/" + lsx.MaLenh.ToString().PadLeft(5,'0'),
+                            MaKeHoach = lsx.MaKeHoach,
+                            SoLuong = lsx.SoLuong,
+                            NgayBatDau = lsx.NgayBatDau,
+                            NgayKetThuc = lsx.NgayKetThuc,
+                            TrangThai = lsx.TrangThai,
+                            NguoiChiuTrachNhiem = lsx.NguoiChiuTrachNhiem,
+                            KhuVucSanXuat = lsx.KhuVucSanXuat,
+
+                            TenHoatDong = hdsx.TenHoatDong,
+                            ThuTu = hdsx.ThuTu,
+
+                            TenQuyTrinh = qt.TenQuyTrinh,
+                            TenSanPham = sp.TenSanPham,
+                        };
+
+            return await query.ToListAsync();
+        }
+
+
     }
 }

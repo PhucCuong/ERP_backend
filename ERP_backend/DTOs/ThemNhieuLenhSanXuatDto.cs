@@ -4,7 +4,7 @@
     {
         public int MaKeHoach { get; set; }
 
-        public Guid KhuVucSanXuat { get; set; }
+        public string KhuVucSanXuat { get; set; }
 
         public Guid MaQuyTrinh { get; set; }
 
