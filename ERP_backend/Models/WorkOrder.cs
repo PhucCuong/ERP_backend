@@ -27,6 +27,10 @@ namespace ERP_backend.Models
         public string TenHoatDong { get; set; } = null!;
 
         public int ThuTu { get; set; }
+
+        public decimal? ThoiGianDuKien { get; set; }
+
+        public decimal? ThoiGianThucTe {  get; set; }
     }
 
 }

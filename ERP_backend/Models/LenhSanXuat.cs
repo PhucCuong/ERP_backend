@@ -29,6 +29,8 @@ public partial class LenhSanXuat
 
     public Guid? MaHoatDong { get; set; }
 
+    public decimal? ThoiGianThucTe { get; set; }
+
     public virtual ICollection<ChiPhiSanXuat> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuat>();
 
     public virtual KeHoachSanXuat MaKeHoachNavigation { get; set; } = null!;

@@ -60,6 +60,7 @@ namespace ERP_backend.Repositories
             // Bước 1: Lấy danh sách các MaHoatDong từ ChiTietHoatDongSanXuat
             var danhSachMaHoatDong = await _context.ChiTietHoatDongSanXuats
                 .Where(x => x.MaQuyTrinh == modelReq.MaQuyTrinh)
+                .OrderBy(x => x.ThuTu)
                 .Select(x => x.MaHoatDong)
                 .ToListAsync();
 
@@ -118,6 +119,8 @@ namespace ERP_backend.Repositories
 
                             TenQuyTrinh = qt.TenQuyTrinh,
                             TenSanPham = sp.TenSanPham,
+                            ThoiGianDuKien = hdsx.ThoiGianMacDinh,
+                            ThoiGianThucTe = lsx.ThoiGianThucTe
                         };
 
             return await query.ToListAsync();
