@@ -126,6 +126,15 @@ namespace ERP_backend.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<bool> UpdateStatusAndTime(UpdateStatusLenhSanXuat modelRequest)
+        {
+            var lsx = await _context.LenhSanXuats.FindAsync(modelRequest.MaLenh);
 
+            lsx.TrangThai = modelRequest.TrangThai;
+            lsx.ThoiGianThucTe = modelRequest.ThoiGianThucTe;
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
 }

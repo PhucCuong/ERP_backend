@@ -15,5 +15,6 @@ namespace ERP_backend.Repositories
 
 		Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode);
 
+		Task<bool> UpdateStatusAndTime(UpdateStatusLenhSanXuat modelRequest);
     }
 }

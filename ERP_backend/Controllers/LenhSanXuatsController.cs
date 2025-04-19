@@ -110,6 +110,13 @@ namespace ERP_backend.Controllers
 			var result = await _LenhSanXuatService.GetWorkOrderListByPlantCode(plantcode);
 			return Ok(result);
         }
+
+		[HttpPost("update-status")]
+		public async Task<IActionResult> UpdateStatusAndTime(UpdateStatusLenhSanXuat modelRequest)
+		{
+			var result = await _LenhSanXuatService.UpdateStatusAndTime(modelRequest);
+			return Ok(result);
+		}
     }
 
     //private bool LenhSanXuatExists(Guid id)

@@ -13,5 +13,7 @@ namespace ERP_backend.Services
 
 		Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq);
         Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode);
+
+        Task<bool> UpdateStatusAndTime(UpdateStatusLenhSanXuat modelRequest);
     }
 }

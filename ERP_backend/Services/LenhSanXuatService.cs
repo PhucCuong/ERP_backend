@@ -136,6 +136,12 @@ namespace ERP_backend.Services
 			return result;
         }
 
+		public async Task<bool> UpdateStatusAndTime(UpdateStatusLenhSanXuat modelRequest)
+		{
+			var result = await _lenhSanXuatRepository.UpdateStatusAndTime(modelRequest);
+			return result;
+		}
+
     }
 
 }
