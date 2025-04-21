@@ -10,5 +10,6 @@ namespace ERP_backend.Services
 		Task<KeHoachSanXuatDto> Update(KeHoachSanXuatDto input);
 		Task<KeHoachSanXuatDto> Add(KeHoachSanXuatDto input);
 		Task<KeHoachSanXuatDto> Delete(KeHoachSanXuatDto input);
-	}
+        Task<bool> UpdateStatus(UpdateStatusKeHoach requestBody);
+    }
 }

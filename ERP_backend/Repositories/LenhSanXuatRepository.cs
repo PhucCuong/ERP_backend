@@ -120,7 +120,8 @@ namespace ERP_backend.Repositories
                             TenQuyTrinh = qt.TenQuyTrinh,
                             TenSanPham = sp.TenSanPham,
                             ThoiGianDuKien = hdsx.ThoiGianMacDinh,
-                            ThoiGianThucTe = lsx.ThoiGianThucTe
+                            ThoiGianThucTe = lsx.ThoiGianThucTe,
+                            DieuKienBatDauGiaiDoanTiepTheo = hdsx.DieuKienBatDauGiaiDoanTiepTheo,
                         };
 
             return await query.ToListAsync();

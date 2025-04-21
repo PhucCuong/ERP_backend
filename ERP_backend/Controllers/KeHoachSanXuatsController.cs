@@ -105,6 +105,13 @@ namespace ERP_backend.Controllers
 
 			return NoContent();
 		}
+
+		[HttpPost("update-status")]
+		public async Task<IActionResult> UpdateStatus(UpdateStatusKeHoach requestBody)
+		{
+			var result = await _keHoachSanXuatService.UpdateStatus(requestBody);
+			return Ok(result);
+		}
 	}
 
 	//private bool KeHoachSanXuatExists(Guid id)

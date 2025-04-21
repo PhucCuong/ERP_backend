@@ -43,6 +43,16 @@ namespace ERP_backend.Repositories
 			return result;
 		}
 
-		
-	}
+		public async Task<bool> UpdateStatus(UpdateStatusKeHoach requestBody)
+		{
+			var kehoach = await _context.KeHoachSanXuats.FindAsync(requestBody.MaKeHoach);
+            if (kehoach == null)
+            {
+				return false;
+            }
+			kehoach.TrangThai = requestBody.TrangThai;
+			var result = await _context.SaveChangesAsync();
+			return result > 0;
+        }
+    }
 }

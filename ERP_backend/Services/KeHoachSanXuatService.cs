@@ -116,7 +116,14 @@ namespace ERP_backend.Services
 
 		}
 
-		private IEnumerable<KeHoachSanXuat> ConvertListDtoToKeHoachSanXuat(IEnumerable<KeHoachSanXuatDto> input)
+        public async Task<bool> UpdateStatus(UpdateStatusKeHoach requestBody)
+		{
+			var result = await _KeHoachSanXuatRepository.UpdateStatus(requestBody);
+			return result;
+		}
+
+
+        private IEnumerable<KeHoachSanXuat> ConvertListDtoToKeHoachSanXuat(IEnumerable<KeHoachSanXuatDto> input)
 		{
 			var result = new List<KeHoachSanXuat>();
 

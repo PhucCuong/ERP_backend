@@ -31,6 +31,8 @@ namespace ERP_backend.Models
         public decimal? ThoiGianDuKien { get; set; }
 
         public decimal? ThoiGianThucTe {  get; set; }
+
+        public string DieuKienBatDauGiaiDoanTiepTheo { get; set; }
     }
 
 }

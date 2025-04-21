@@ -9,5 +9,7 @@ namespace ERP_backend.Repositories
 		Task<KeHoachSanXuat> Update(KeHoachSanXuat input);
 		Task<KeHoachSanXuat> Add(KeHoachSanXuat input);
 		Task<KeHoachSanXuat> Delete(KeHoachSanXuat input);
+
+		Task<bool> UpdateStatus (UpdateStatusKeHoach requestBody);
 	}
 }
