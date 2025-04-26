@@ -99,7 +99,21 @@ namespace ERP_backend.Controllers
 
 			return NoContent();
 		}
-	}
+
+		[HttpPost("add-list")]
+        public async Task<IActionResult> AddList(AddListNhapKhoDto input)
+        {
+            var result = await _NhapKhoService.AddList(input);
+            return Ok(result); 
+        }
+
+		[HttpGet("check-quality")]
+		public async Task<IActionResult> GetAllCheckQuality ()
+		{
+			var result = await _NhapKhoService.GetAllListCheckQuality();
+			return Ok(result);
+		}
+    }
 
 	//private bool NhapKhoExists(Guid id)
 	//{

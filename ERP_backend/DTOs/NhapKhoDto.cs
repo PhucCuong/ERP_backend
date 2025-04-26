@@ -9,8 +9,6 @@ public class NhapKhoDto
 
     public Guid MaSanPham { get; set; }
 
-    public decimal SoLuong { get; set; }
-
     public DateTime NgayNhap { get; set; }
 
     public string? NguoiNhap { get; set; }

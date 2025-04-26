@@ -63,7 +63,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True;");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -420,15 +420,14 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
         modelBuilder.Entity<NhapKho>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("NhapKho");
+            entity.HasKey(e => e.Soseri);
 
+            entity.ToTable("NhapKho");
+
+            entity.Property(e => e.Soseri).HasMaxLength(255);
             entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.NguoiNhap).HasMaxLength(100);
-            entity.Property(e => e.SoLuong).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Soseri).HasMaxLength(255);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
         });
 

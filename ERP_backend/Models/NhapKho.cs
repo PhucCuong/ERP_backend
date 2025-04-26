@@ -5,11 +5,9 @@ namespace ERP_backend.Models;
 
 public partial class NhapKho
 {
-    public string? Soseri { get; set; }
+    public string Soseri { get; set; } = null!;
 
     public Guid MaSanPham { get; set; }
-
-    public decimal SoLuong { get; set; }
 
     public DateTime NgayNhap { get; set; }
 

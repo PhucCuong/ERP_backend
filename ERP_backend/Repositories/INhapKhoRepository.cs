@@ -1,4 +1,5 @@
-﻿using ERP_backend.Models;
+﻿using ERP_backend.DTOs;
+using ERP_backend.Models;
 
 namespace ERP_backend.Repositories
 {
@@ -9,5 +10,9 @@ namespace ERP_backend.Repositories
 		Task<NhapKho> Update(NhapKho input);
 		Task<NhapKho> Add(NhapKho input);
 		Task<NhapKho> Delete(NhapKho input);
+
+		Task<bool> AddList(AddListNhapKhoDto addListNhapKhoDto);
+
+		Task<List<ChatLuongSanPham>> GetAllListCheckQuality();
 	}
 }

@@ -53,7 +53,6 @@ namespace ERP_backend.Services
 			}
 			result.Soseri = input.Soseri;
 			result.MaSanPham = input.MaSanPham;
-			result.SoLuong = input.SoLuong;
 			result.NgayNhap = input.NgayNhap;
 			result.NguoiNhap = input.NguoiNhap;
 			result.TrangThai = input.TrangThai;
@@ -89,7 +88,6 @@ namespace ERP_backend.Services
 			}
 			result.Soseri = input.Soseri;
 			result.MaSanPham = input.MaSanPham;
-			result.SoLuong = input.SoLuong;
 			result.NgayNhap = input.NgayNhap;
 			result.NguoiNhap = input.NguoiNhap;
 			result.TrangThai = input.TrangThai;
@@ -99,7 +97,19 @@ namespace ERP_backend.Services
 			return result;
 		}
 
-		private IEnumerable<NhapKho> ConvertListDtoToNhapKho(IEnumerable<NhapKhoDto> input)
+        public async Task<bool> AddList(AddListNhapKhoDto addListNhapKhoDto)
+		{
+			var result = await _nhapKhoRepository.AddList(addListNhapKhoDto);
+			return result;
+		}
+
+        public async Task<List<ChatLuongSanPham>> GetAllListCheckQuality()
+		{
+			var result = await _nhapKhoRepository.GetAllListCheckQuality();
+			return result;
+		}
+
+        private IEnumerable<NhapKho> ConvertListDtoToNhapKho(IEnumerable<NhapKhoDto> input)
 		{
 			var result = new List<NhapKho>();
 
