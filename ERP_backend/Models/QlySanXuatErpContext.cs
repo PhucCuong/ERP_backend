@@ -63,11 +63,12 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<BaoCaoSanXuat>(entity =>
         {
             entity.HasKey(e => e.MaBaoCao).HasName("PK__BaoCaoSa__25A9188C98FDDD4C");
@@ -419,23 +420,16 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
         modelBuilder.Entity<NhapKho>(entity =>
         {
-            entity.HasKey(e => e.MaNhapKho).HasName("PK__NhapKho__B06029506CE39CCD");
+            entity
+                .HasNoKey()
+                .ToTable("NhapKho");
 
-            entity.ToTable("NhapKho");
-
-            entity.HasIndex(e => e.MaSanPham, "IX_NhapKho_MaSanPham");
-
-            entity.Property(e => e.MaNhapKho).HasDefaultValueSql("(newid())");
             entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.NguoiNhap).HasMaxLength(100);
             entity.Property(e => e.SoLuong).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Soseri).HasMaxLength(255);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
-
-            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.NhapKhos)
-                .HasForeignKey(d => d.MaSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__NhapKho__MaSanPh__282DF8C2");
         });
 
         modelBuilder.Entity<QuyTrinhSanXuat>(entity =>

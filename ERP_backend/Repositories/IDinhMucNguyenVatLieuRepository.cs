@@ -1,4 +1,5 @@
 ﻿using ERP_backend.Models;
+using System.Linq.Expressions;
 
 namespace ERP_backend.Repositories
 {
@@ -9,5 +10,6 @@ namespace ERP_backend.Repositories
 		Task<DinhMucNguyenVatLieu> Update(DinhMucNguyenVatLieu input);
 		Task<DinhMucNguyenVatLieu> Add(DinhMucNguyenVatLieu input);
 		Task<DinhMucNguyenVatLieu> Delete(DinhMucNguyenVatLieu input);
+		Task<IEnumerable<DinhMucNguyenVatLieu>> GetByConditionAsync(Expression<Func<DinhMucNguyenVatLieu, bool>> expression);
 	}
 }

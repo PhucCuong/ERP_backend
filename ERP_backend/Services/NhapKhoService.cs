@@ -32,7 +32,7 @@ namespace ERP_backend.Services
 			return ConvertListNhapKhoToDto(result);
 		}
 
-		public async Task<NhapKhoDto> GetById(Guid id)
+		public async Task<NhapKhoDto> GetById(string id)
 		{
 			var result = await _nhapKhoRepository.GetById(id);
 			return ConvertNhapKhoToDto(result);
@@ -51,7 +51,7 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaNhapKho = input.MaNhapKho;
+			result.Soseri = input.Soseri;
 			result.MaSanPham = input.MaSanPham;
 			result.SoLuong = input.SoLuong;
 			result.NgayNhap = input.NgayNhap;
@@ -87,7 +87,7 @@ namespace ERP_backend.Services
 			{
 				return result;
 			}
-			result.MaNhapKho = input.MaNhapKho;
+			result.Soseri = input.Soseri;
 			result.MaSanPham = input.MaSanPham;
 			result.SoLuong = input.SoLuong;
 			result.NgayNhap = input.NgayNhap;

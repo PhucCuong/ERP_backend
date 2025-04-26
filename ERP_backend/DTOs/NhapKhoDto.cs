@@ -5,7 +5,7 @@ namespace ERP_backend.DTOs;
 
 public class NhapKhoDto
 {
-    public Guid MaNhapKho { get; set; }
+    public string Soseri { get; set; }
 
     public Guid MaSanPham { get; set; }
 

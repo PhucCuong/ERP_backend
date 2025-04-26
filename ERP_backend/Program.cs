@@ -41,6 +41,7 @@ builder.Services.AddScoped<IDonHangRepository, DonHangRepository>();
 
 builder.Services.AddScoped<INhaCungCapRepository, NhaCungCapRepository>();
 builder.Services.AddScoped<IYeuCauNguyenVatLieuRepository, YeuCauNguyenVatLieuRepository>();
+
 // Register Service to DI
 builder.Services.AddTransient<IBaoCaoSanXuatService, BaoCaoSanXuatService>();
 builder.Services.AddTransient<IBaoTriService, BaoTriService>();

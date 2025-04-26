@@ -5,7 +5,7 @@ namespace ERP_backend.Models;
 
 public partial class NhapKho
 {
-    public Guid MaNhapKho { get; set; }
+    public string? Soseri { get; set; }
 
     public Guid MaSanPham { get; set; }
 
@@ -22,6 +22,4 @@ public partial class NhapKho
     public DateTime? NgayTao { get; set; }
 
     public DateTime? NgayChinhSua { get; set; }
-
-    public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
 }

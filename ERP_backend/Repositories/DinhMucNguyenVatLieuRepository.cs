@@ -1,6 +1,7 @@
 ﻿
 using ERP_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ERP_backend.Repositories
 {
@@ -43,6 +44,10 @@ namespace ERP_backend.Repositories
 			var result = _context.DinhMucNguyenVatLieus.Remove(input).Entity;
 			await _context.SaveChangesAsync();
 			return result;
+		}
+		public async Task<IEnumerable<DinhMucNguyenVatLieu>> GetByConditionAsync(Expression<Func<DinhMucNguyenVatLieu, bool>> expression)
+		{
+			return await _context.DinhMucNguyenVatLieus.Where(expression).ToListAsync();
 		}
 	}
 }

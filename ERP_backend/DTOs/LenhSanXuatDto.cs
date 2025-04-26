@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ERP_backend.DTOs;
 
@@ -18,23 +19,12 @@ public class LenhSanXuatDto
 	public DateTime NgayBatDau { get; set; }
 
 	public DateTime NgayKetThuc { get; set; }
-
 	public string TrangThai { get; set; } = null!;
-
 	public string? NguoiChiuTrachNhiem { get; set; }
 
 	public Guid MaDinhMuc { get; set; }
-
 	public string KhuVucSanXuat { get; set; } = null!;
 
     public Guid? MaHoatDong { get; set; }
 
-    public virtual ICollection<ChiPhiSanXuatDto> ChiPhiSanXuats { get; set; } = new List<ChiPhiSanXuatDto>();
-
-
-    public virtual KeHoachSanXuatDto? MaKeHoachNavigation { get; set; }
-
-    public virtual QuyTrinhSanXuatDto? MaQuyTrinhNavigation { get; set; }
-
-    public virtual SanPhamDto? MaSanPhamNavigation { get; set; }
 }

@@ -33,7 +33,7 @@ namespace ERP_backend.Controllers
 
 		// GET: api/NhapKhox/5
 		[HttpGet("{id}")]
-		public async Task<ActionResult<NhapKhoDto>> GetNhapKho(Guid id)
+		public async Task<ActionResult<NhapKhoDto>> GetNhapKho(string id)
 		{
 			var NhapKho = await _NhapKhoService.GetById(id);
 
@@ -48,9 +48,9 @@ namespace ERP_backend.Controllers
 		// PUT: api/NhapKhox/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutNhapKho(Guid id, NhapKhoDto NhapKho)
+		public async Task<IActionResult> PutNhapKho(string id, NhapKhoDto NhapKho)
 		{
-			if (id != NhapKho.MaNhapKho)
+			if (id != NhapKho.Soseri)
 			{
 				return BadRequest();
 			}
@@ -82,12 +82,12 @@ namespace ERP_backend.Controllers
 
 			var result = await _NhapKhoService.Add(NhapKho);
 
-			return CreatedAtAction("GetNhapKho", new { id = NhapKho.MaNhapKho }, NhapKho);
+			return CreatedAtAction("GetNhapKho", new { id = NhapKho.Soseri }, NhapKho);
 		}
 
 		// DELETE: api/NhapKhox/5
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteNhapKho(Guid id)
+		public async Task<IActionResult> DeleteNhapKho(string id)
 		{
 			var NhapKho = await _NhapKhoService.GetById(id);
 			if (NhapKho == null)

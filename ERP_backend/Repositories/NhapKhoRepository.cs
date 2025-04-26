@@ -17,7 +17,7 @@ namespace ERP_backend.Repositories
 			return await _context.NhapKhos.ToListAsync();
 		}
 
-		public async Task<NhapKho> GetById(Guid id)
+		public async Task<NhapKho> GetById(string id)
 		{
 			return await _context.NhapKhos.FindAsync(id);
 		}

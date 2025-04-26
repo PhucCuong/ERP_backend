@@ -2,6 +2,7 @@
 using ERP_backend.DTOs;
 using ERP_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ERP_backend.Repositories
 {
@@ -39,61 +40,72 @@ namespace ERP_backend.Repositories
 
 		public async Task<bool> Delete(int id)
 		{
-            // Tìm đối tượng LenhSanXuat theo id
-            var lenhsx = await _context.LenhSanXuats.FindAsync(id);
 
-            // Nếu không tìm thấy thì trả về false
-            if (lenhsx == null)
-            {
-                return false;
-            }
+			var lenhsx = await _context.LenhSanXuats.FindAsync(id);
 
-            // Xóa đối tượng
-            _context.LenhSanXuats.Remove(lenhsx);
-            var result = await _context.SaveChangesAsync();
+			if (lenhsx == null)
+			{
+				return false;
+			}
 
-            return result > 0;
-        }
+			_context.LenhSanXuats.Remove(lenhsx);
+			var result = await _context.SaveChangesAsync();
 
-        public async Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq)
-        {
-            // Bước 1: Lấy danh sách các MaHoatDong từ ChiTietHoatDongSanXuat
-            var danhSachMaHoatDong = await _context.ChiTietHoatDongSanXuats
-                .Where(x => x.MaQuyTrinh == modelReq.MaQuyTrinh)
-                .OrderBy(x => x.ThuTu)
-                .Select(x => x.MaHoatDong)
-                .ToListAsync();
+			return result > 0;
+		}
 
-            // Kiểm tra nếu không có dữ liệu
-            if (danhSachMaHoatDong == null || !danhSachMaHoatDong.Any())
-                return false;
+		public async Task<bool> AddListWorkOrder(ThemNhieuLenhSanXuatDto modelReq)
+		{
+			// Bước 1: Lấy danh sách các MaHoatDong từ ChiTietHoatDongSanXuat theo thứ tự
+			var danhSachMaHoatDong = await _context.ChiTietHoatDongSanXuats
+				.Where(x => x.MaQuyTrinh == modelReq.MaQuyTrinh)
+				.OrderBy(x => x.ThuTu)
+				.Select(x => x.MaHoatDong)
+				.ToListAsync();
 
-            // Bước 2: Với mỗi MaHoatDong, map sang LenhSanXuat và gọi hàm Add
-            foreach (var maHoatDong in danhSachMaHoatDong)
-            {
-                var lenhSanXuat = new LenhSanXuat
-                {
-                    MaKeHoach = modelReq.MaKeHoach,
-                    MaQuyTrinh = modelReq.MaQuyTrinh,
-                    MaSanPham = modelReq.MaSanPham,
-                    NgayBatDau = modelReq.NgayBatDau,
-                    NgayKetThuc = modelReq.NgayKetThuc,
-                    NguoiChiuTrachNhiem = modelReq.NguoiChiuTrachNhiem,
-                    SoLuong = modelReq.SoLuong,
-                    TrangThai = modelReq.TrangThai,
-                    KhuVucSanXuat = modelReq.KhuVucSanXuat.ToString(), // vì model là Guid, DB là string
-                    MaHoatDong = maHoatDong,
-                    MaDinhMuc = Guid.NewGuid() // nếu bạn cần tạo mới, hoặc bạn có logic khác thì chỉnh lại
-                };
+			// Kiểm tra nếu không có dữ liệu thì dừng
+			if (danhSachMaHoatDong == null || !danhSachMaHoatDong.Any())
+				throw new Exception("Không tìm thấy hoạt động sản xuất cho quy trình này!");
 
-                // Gọi hàm Add (giả sử đã tồn tại)
-                await Add(lenhSanXuat);
-            }
+			// Bước 2: Với mỗi MaHoatDong, tạo một lệnh sản xuất tương ứng
+			foreach (var maHoatDong in danhSachMaHoatDong)
+			{
+				var lenhSanXuat = new LenhSanXuat
+				{
+					MaKeHoach = modelReq.MaKeHoach,
+					MaQuyTrinh = modelReq.MaQuyTrinh,
+					MaSanPham = modelReq.MaSanPham,
+					NgayBatDau = modelReq.NgayBatDau,
+					NgayKetThuc = modelReq.NgayKetThuc,
+					NguoiChiuTrachNhiem = modelReq.NguoiChiuTrachNhiem,
+					SoLuong = modelReq.SoLuong,
+					TrangThai = modelReq.TrangThai,
+					KhuVucSanXuat = modelReq.KhuVucSanXuat?.ToString(), // Đảm bảo null-safe nếu KhuVucSanXuat là Guid?
+					MaHoatDong = maHoatDong,
+					// TODO: Chỗ này bạn cần lấy đúng MaDinhMuc từ DB hoặc tính toán tương ứng:
+					MaDinhMuc = await LayMaDinhMucTheoSanPham(modelReq.MaSanPham)
+				};
 
-            return true;
-        }
+				await Add(lenhSanXuat); // Giả định hàm Add xử lý lưu vào DB và kiểm tra tồn kho v.v...
+			}
 
-        public async Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode)
+			return true;
+		}
+		private async Task<Guid> LayMaDinhMucTheoSanPham(Guid maSanPham)
+		{
+			var dinhMuc = await _context.DinhMucNguyenVatLieus
+				.Where(dm => dm.MaSanPham == maSanPham)
+				.OrderByDescending(dm => dm.NgayTao) // Ưu tiên cái mới nhất?
+				.FirstOrDefaultAsync();
+
+			if (dinhMuc == null)
+				throw new Exception($"Không tìm thấy định mức cho sản phẩm có mã: {maSanPham}");
+
+			return dinhMuc.MaDinhMuc;
+		}
+
+
+		public async Task<List<WorkOrder>> GetWorkOrderListByPlantCode(int plantCode)
         {
             var query = from lsx in _context.LenhSanXuats
                         join hdsx in _context.ChiTietHoatDongSanXuats
@@ -137,5 +149,10 @@ namespace ERP_backend.Repositories
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
-    }
+		public async Task<IEnumerable<LenhSanXuat>> GetByConditionAsync(Expression<Func<LenhSanXuat, bool>> predicate)
+		{
+			return await _context.Set<LenhSanXuat>().Where(predicate).ToListAsync();
+		}
+
+	}
 }
