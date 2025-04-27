@@ -12,5 +12,7 @@ namespace ERP_backend.Services
 		Task<NhapKhoDto> Delete(NhapKhoDto input);
         Task<bool> AddList(AddListNhapKhoDto addListNhapKhoDto);
         Task<List<ChatLuongSanPham>> GetAllListCheckQuality();
+
+        Task<bool> UpdateStatus(UpdateStatusNhapKhoDto input);
     }
 }

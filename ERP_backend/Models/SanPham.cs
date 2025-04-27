@@ -27,11 +27,11 @@ public partial class SanPham
 
     public virtual ICollection<KeHoachSanXuat> KeHoachSanXuats { get; set; } = new List<KeHoachSanXuat>();
 
-    public virtual ICollection<KiemTraChatLuong> KiemTraChatLuongs { get; set; } = new List<KiemTraChatLuong>();
-
     public virtual ICollection<LenhGoBo> LenhGoBos { get; set; } = new List<LenhGoBo>();
 
     public virtual ICollection<LenhSanXuat> LenhSanXuats { get; set; } = new List<LenhSanXuat>();
+
+    public virtual ICollection<NhapKho> NhapKhos { get; set; } = new List<NhapKho>();
 
     public virtual ICollection<QuyTrinhSanXuat> QuyTrinhSanXuats { get; set; } = new List<QuyTrinhSanXuat>();
 

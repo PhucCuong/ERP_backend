@@ -22,7 +22,6 @@ builder.Services.AddTransient<IChiTietHoatDongSanXuatRepository, ChiTietHoatDong
 
 builder.Services.AddTransient<IDinhMucNguyenVatLieuRepository, DinhMucNguyenVatLieuRepository>();
 builder.Services.AddTransient<IKeHoachSanXuatRepository, KeHoachSanXuatRepository>();
-builder.Services.AddTransient<IKiemTraChatLuongRepository, KiemTraChatLuongRepository>();
 builder.Services.AddTransient<ILenhGoBoRepository, LenhGoBoRepository>();
 
 builder.Services.AddTransient<ILenhSanXuatRepository, LenhSanXuatRepository>();
@@ -50,7 +49,6 @@ builder.Services.AddTransient<IChiTietHoatDongSanXuatService, ChiTietHoatDongSan
 
 builder.Services.AddTransient<IDinhMucNguyenVatLieuService, DinhMucNguyenVatLieuService>();
 builder.Services.AddTransient<IKeHoachSanXuatService, KeHoachSanXuatService>();
-builder.Services.AddTransient<IKiemTraChatLuongService, KiemTraChatLuongService>();
 builder.Services.AddTransient<ILenhGoBoService, LenhGoBoService>();
 
 builder.Services.AddTransient<ILenhSanXuatService, LenhSanXuatService>();

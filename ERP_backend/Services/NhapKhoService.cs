@@ -109,6 +109,12 @@ namespace ERP_backend.Services
 			return result;
 		}
 
+        public async Task<bool> UpdateStatus(UpdateStatusNhapKhoDto request)
+		{
+			var result = await _nhapKhoRepository.UpdateStatus(request);
+			return result;
+		}
+
         private IEnumerable<NhapKho> ConvertListDtoToNhapKho(IEnumerable<NhapKhoDto> input)
 		{
 			var result = new List<NhapKho>();

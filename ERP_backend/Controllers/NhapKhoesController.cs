@@ -113,10 +113,13 @@ namespace ERP_backend.Controllers
 			var result = await _NhapKhoService.GetAllListCheckQuality();
 			return Ok(result);
 		}
+
+		[HttpPost("update-status")]
+		public async Task<IActionResult> UpdateStatus(UpdateStatusNhapKhoDto request)
+		{
+			var result = await _NhapKhoService.UpdateStatus(request);
+			return Ok(result);
+		}
     }
 
-	//private bool NhapKhoExists(Guid id)
-	//{
-	//    return _context.NhapKhos.Any(e => e.MaDinhMuc == id);
-	//}
 }

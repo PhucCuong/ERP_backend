@@ -1,5 +1,6 @@
 ﻿
 using System.Linq;
+using System.Net.WebSockets;
 using ERP_backend.DTOs;
 using ERP_backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -74,16 +75,24 @@ namespace ERP_backend.Repositories
             var result = await (from nk in _context.NhapKhos
                                 join sp in _context.SanPhams
                                 on nk.MaSanPham equals sp.MaSanPham
-                                where nk.TrangThai == "Watting"
                                 select new ChatLuongSanPham
                                 {
                                     Soseri = nk.Soseri,
                                     TenSanPham = sp.TenSanPham, 
                                     NgayNhap = nk.NgayNhap,
-                                    NguoiNhap = nk.NguoiNhap
+                                    NguoiNhap = nk.NguoiNhap,
+                                    TrangThai = nk.TrangThai,
                                 }).ToListAsync();
 
             return result;
+        }
+
+        public async Task<bool> UpdateStatus(UpdateStatusNhapKhoDto request)
+        {
+            var sp = await _context.NhapKhos.FindAsync(request.Soseri);
+            sp.TrangThai = request.TrangThai;
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

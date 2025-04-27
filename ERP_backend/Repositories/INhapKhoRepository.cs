@@ -14,5 +14,7 @@ namespace ERP_backend.Repositories
 		Task<bool> AddList(AddListNhapKhoDto addListNhapKhoDto);
 
 		Task<List<ChatLuongSanPham>> GetAllListCheckQuality();
+
+		Task<bool> UpdateStatus(UpdateStatusNhapKhoDto input);
 	}
 }

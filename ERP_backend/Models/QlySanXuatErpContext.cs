@@ -33,11 +33,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     public virtual DbSet<KeHoachSanXuat> KeHoachSanXuats { get; set; }
 
-    public virtual DbSet<KetQuaKiemTra> KetQuaKiemTras { get; set; }
-
     public virtual DbSet<Kho> Khos { get; set; }
-
-    public virtual DbSet<KiemTraChatLuong> KiemTraChatLuongs { get; set; }
 
     public virtual DbSet<LenhGoBo> LenhGoBos { get; set; }
 
@@ -63,7 +59,7 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0DG5ETM\\SQLEXPRESS01;Initial Catalog=QlySanXuatERP;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -255,22 +251,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
                 .HasConstraintName("FK__KeHoachSa__MaSan__208CD6FA");
         });
 
-        modelBuilder.Entity<KetQuaKiemTra>(entity =>
-        {
-            entity.HasKey(e => e.KetQuaId).HasName("PK__KetQuaKi__0CFF02031C0DCD29");
-
-            entity.ToTable("KetQuaKiemTra");
-
-            entity.Property(e => e.KetQuaId).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.KetQua).HasMaxLength(50);
-            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getutcdate())");
-
-            entity.HasOne(d => d.MaKiemTraNavigation).WithMany(p => p.KetQuaKiemTras)
-                .HasForeignKey(d => d.MaKiemTra)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__KetQuaKie__MaKie__2180FB33");
-        });
-
         modelBuilder.Entity<Kho>(entity =>
         {
             entity.HasKey(e => e.MaKho).HasName("PK__Kho__3BDA93504E2015FA");
@@ -281,27 +261,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.DiaChi).HasMaxLength(255);
             entity.Property(e => e.TenKho).HasMaxLength(100);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<KiemTraChatLuong>(entity =>
-        {
-            entity.HasKey(e => e.MaKiemTra).HasName("PK__KiemTraC__5274B031FA9F0FE2");
-
-            entity.ToTable("KiemTraChatLuong");
-
-            entity.HasIndex(e => e.MaSanPham, "IX_KiemTraChatLuong_MaSanPham");
-
-            entity.Property(e => e.MaKiemTra).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.DoiKiemTra).HasMaxLength(100);
-            entity.Property(e => e.KetQua).HasMaxLength(50);
-            entity.Property(e => e.NgayChinhSua).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NguoiPhuTrach).HasMaxLength(100);
-
-            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.KiemTraChatLuongs)
-                .HasForeignKey(d => d.MaSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__KiemTraCh__MaSan__22751F6C");
         });
 
         modelBuilder.Entity<LenhGoBo>(entity =>
@@ -429,6 +388,11 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
             entity.Property(e => e.NgayTao).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.NguoiNhap).HasMaxLength(100);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
+
+            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.NhapKhos)
+                .HasForeignKey(d => d.MaSanPham)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_NhapKho_SanPham");
         });
 
         modelBuilder.Entity<QuyTrinhSanXuat>(entity =>

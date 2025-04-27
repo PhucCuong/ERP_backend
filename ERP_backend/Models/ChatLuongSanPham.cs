@@ -9,5 +9,7 @@
         public DateTime NgayNhap { get; set; }
 
         public string? NguoiNhap { get; set; }
+
+        public string? TrangThai { get; set; }
     }
 }
