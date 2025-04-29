@@ -10,5 +10,8 @@ namespace ERP_backend.Services
 		Task<LenhGoBoDto> Update(LenhGoBoDto input);
 		Task<LenhGoBoDto> Add(LenhGoBoDto input);
 		Task<LenhGoBoDto> Delete(LenhGoBoDto input);
-	}
+
+		Task<List<LenhGoBoResponse>> RenderLenhGoBo();
+		Task<bool> UpdateStatus(UpdateStatusLenhGoBo input);
+    }
 }

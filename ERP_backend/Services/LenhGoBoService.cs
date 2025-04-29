@@ -96,7 +96,19 @@ namespace ERP_backend.Services
 			return result;
 		}
 
-		private IEnumerable<LenhGoBo> ConvertListDtoToLenhGoBo(IEnumerable<LenhGoBoDto> input)
+		public async Task<List<LenhGoBoResponse>> RenderLenhGoBo()
+		{
+			var result = await _LenhGoBoRepository.RenderLenhGoBo();
+			return result;
+		}
+
+		public async Task<bool> UpdateStatus(UpdateStatusLenhGoBo input)
+		{
+			var result = await _LenhGoBoRepository.UpdateStatus(input);
+			return result;
+		}
+
+        private IEnumerable<LenhGoBo> ConvertListDtoToLenhGoBo(IEnumerable<LenhGoBoDto> input)
 		{
 			var result = new List<LenhGoBo>();
 

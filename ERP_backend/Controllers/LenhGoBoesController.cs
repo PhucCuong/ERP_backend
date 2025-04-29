@@ -9,6 +9,7 @@ using ERP_backend.Models;
 using ERP_backend.DTOs;
 using ERP_backend.Repositories;
 using ERP_backend.Services;
+using System.Data;
 
 namespace ERP_backend.Controllers
 {
@@ -99,7 +100,22 @@ namespace ERP_backend.Controllers
 
 			return NoContent();
 		}
-	}
+
+		[HttpGet("get-lenhgobo")]
+		public async Task<IActionResult> RenderLenhGoBo()
+		{
+			var result = await _LenhGoBoService.RenderLenhGoBo();
+            return Ok(result);
+        }
+
+		[HttpPost("update-status")]
+		public async Task<IActionResult> UpdateStatus(UpdateStatusLenhGoBo input)
+		{
+			var result = await _LenhGoBoService.UpdateStatus(input);
+			return Ok(result);
+		}
+
+    }
 
 	//private bool LenhGoBoExists(Guid id)
 	//{
