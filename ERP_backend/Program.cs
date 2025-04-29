@@ -64,11 +64,12 @@ builder.Services.AddTransient<ITonKhoService, TonKhoService>();
 builder.Services.AddTransient<IDonHangService, DonHangService>();
 builder.Services.AddScoped<INhaCungCapService, NhaCungCapService>();
 builder.Services.AddScoped<IYeuCauNguyenVatLieuService, YeuCauNguyenVatLieuService>();
-
+builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddHttpContextAccessor();

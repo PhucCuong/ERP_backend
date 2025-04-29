@@ -13,15 +13,11 @@ public class LenhGoBoDto
 
     public string LyDoGoBo { get; set; } = null!;
 
-    public DateTime NgayBatDau { get; set; }
-
-    public DateTime NgayKetThuc { get; set; }
-
     public string TrangThai { get; set; } = null!;
 
     public string? NguoiChiuTrachNhiem { get; set; }
 
-    public virtual KeHoachSanXuatDto MaKeHoachNavigation { get; set; } = null!;
+    public virtual KeHoachSanXuatDto? MaKeHoachNavigation { get; set; }
 
-    public virtual SanPhamDto MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPhamDto? MaSanPhamNavigation { get; set; }
 }

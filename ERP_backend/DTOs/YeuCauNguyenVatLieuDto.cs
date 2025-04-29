@@ -18,5 +18,5 @@ public class YeuCauNguyenVatLieuDto
     public DateTime? NgayGiaoHangDuKien { get; set; }
 
     public DateTime? NgayTao { get; set; }
-
+	public decimal? TongTien { get; set; }
 }

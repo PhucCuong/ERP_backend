@@ -57,6 +57,7 @@ namespace ERP_backend.Services
 			result.MaNhaCungCap = input.MaNhaCungCap;
 			result.NgayGiaoHangDuKien = input.NgayGiaoHangDuKien;
 			result.NgayTao = input.NgayTao;
+			result.TongTien = input.TongTien;
 			return result;
 		}
 
@@ -90,6 +91,7 @@ namespace ERP_backend.Services
 			result.MaNhaCungCap = input.MaNhaCungCap;
 			result.NgayGiaoHangDuKien = input.NgayGiaoHangDuKien;
 			result.NgayTao = input.NgayTao;
+			result.TongTien = input.TongTien;
 			return result;
 		}
 

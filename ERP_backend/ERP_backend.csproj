@@ -4,10 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>778c25f1-55f8-49e0-b235-f0b47f2991b2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.3.0" />

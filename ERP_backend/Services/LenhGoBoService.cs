@@ -55,8 +55,6 @@ namespace ERP_backend.Services
 			result.MaKeHoach = input.MaKeHoach;
 			result.MaSanPham = input.MaSanPham;
 			result.LyDoGoBo = input.LyDoGoBo;
-			result.NgayBatDau = input.NgayBatDau;
-			result.NgayKetThuc = input.NgayKetThuc;
 			result.TrangThai = input.TrangThai;
 			result.NguoiChiuTrachNhiem = input.NguoiChiuTrachNhiem;
 
@@ -93,8 +91,6 @@ namespace ERP_backend.Services
 			result.MaKeHoach = input.MaKeHoach;
 			result.MaSanPham = input.MaSanPham;
 			result.LyDoGoBo = input.LyDoGoBo;
-			result.NgayBatDau = input.NgayBatDau;
-			result.NgayKetThuc = input.NgayKetThuc;
 			result.TrangThai = input.TrangThai;
 			result.NguoiChiuTrachNhiem = input.NguoiChiuTrachNhiem;
 			return result;

@@ -13,10 +13,6 @@ public partial class LenhGoBo
 
     public string LyDoGoBo { get; set; } = null!;
 
-    public DateTime NgayBatDau { get; set; }
-
-    public DateTime NgayKetThuc { get; set; }
-
     public string TrangThai { get; set; } = null!;
 
     public string? NguoiChiuTrachNhiem { get; set; }

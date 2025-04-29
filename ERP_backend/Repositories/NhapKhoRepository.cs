@@ -78,6 +78,7 @@ namespace ERP_backend.Repositories
                                 select new ChatLuongSanPham
                                 {
                                     Soseri = nk.Soseri,
+                                    MaSanPham = sp.MaSanPham,
                                     TenSanPham = sp.TenSanPham, 
                                     NgayNhap = nk.NgayNhap,
                                     NguoiNhap = nk.NguoiNhap,

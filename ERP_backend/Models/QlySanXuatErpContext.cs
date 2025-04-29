@@ -64,7 +64,6 @@ public partial class QlySanXuatErpContext : IdentityDbContext<ApplicationUser, I
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         modelBuilder.Entity<BaoCaoSanXuat>(entity =>
         {
             entity.HasKey(e => e.MaBaoCao).HasName("PK__BaoCaoSa__25A9188C98FDDD4C");
