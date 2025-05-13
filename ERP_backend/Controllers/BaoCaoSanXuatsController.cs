@@ -24,90 +24,20 @@ namespace ERP_backend.Controllers
 			_BaoCaoSanXuatService = BaoCaoSanXuatService;
         }
 
-        // GET: api/BaoCaoSanXuats
-        [HttpGet]
-		
-		public async Task<ActionResult<IEnumerable<BaoCaoSanXuatDto>>> GetBaoCaoSanXuats()
+
+        [HttpGet("tien-do-san-xuat")]
+        public async Task<ActionResult<BaoCaoTongHopSanXuat>> GetTienDoSanXuat()
         {
-            var result = await _BaoCaoSanXuatService.GetAll();
+            var result = await _BaoCaoSanXuatService.GetTienDoSanXuat();
             return Ok(result);
         }
 
-        // GET: api/BaoCaoSanXuats/5
-        [HttpGet("{id}")]
-		
-		public async Task<ActionResult<BaoCaoSanXuatDto>> GetBaoCaoSanXuat(int id)
+
+        [HttpGet("tong-quan-san-pham")]
+        public async Task<ActionResult<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham()
         {
-            var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
-
-            //if (BaoCaoSanXuat == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return BaoCaoSanXuat;
+            var result = await _BaoCaoSanXuatService.GetTongQuanSoLuongSanPham();
+            return Ok(result);
         }
-
-        // PUT: api/BaoCaoSanXuats/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-		[Authorize(Roles = "Bộ phận sản xuất")]
-		public async Task<IActionResult> PutBaoCaoSanXuat(int id, BaoCaoSanXuatDto BaoCaoSanXuat)
-        {
-            if (id != BaoCaoSanXuat.MaBaoCao)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await _BaoCaoSanXuatService.Update(BaoCaoSanXuat);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (await _BaoCaoSanXuatService.GetById(id) == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/BaoCaoSanXuats
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-
-		public async Task<ActionResult<BaoCaoSanXuatDto>> PostBaoCaoSanXuat(BaoCaoSanXuatDto BaoCaoSanXuat)
-        {
-            var result = await _BaoCaoSanXuatService.Add(BaoCaoSanXuat);
-
-            return CreatedAtAction("GetBaoCaoSanXuat", new { id = BaoCaoSanXuat.MaBaoCao }, BaoCaoSanXuat);
-        }
-
-        // DELETE: api/BaoCaoSanXuats/5
-        [HttpDelete("{id}")]
-
-		public async Task<IActionResult> DeleteBaoCaoSanXuat(int id)
-        {
-            var BaoCaoSanXuat = await _BaoCaoSanXuatService.GetById(id);
-            if (BaoCaoSanXuat == null)
-            {
-                return NotFound();
-            }
-
-			await _BaoCaoSanXuatService.Delete(BaoCaoSanXuat);
-
-            return NoContent();
-        }
-
-        //private bool BaoCaoSanXuatExists(Guid id)
-        //{
-        //    return _BaoCaoSanXuatService.Any(e => e.MaBaoCao == id);
-        //}
     }
 }

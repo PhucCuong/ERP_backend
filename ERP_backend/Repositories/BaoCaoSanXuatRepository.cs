@@ -13,37 +13,52 @@ namespace ERP_backend.Repositories
 			_context = context;
 		}
 
-		public async Task<BaoCaoSanXuat> Add(BaoCaoSanXuat input)
-		{
-			var result = _context.BaoCaoSanXuats.Add(input).Entity;
-			await _context.SaveChangesAsync();
-			return result;
+        public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat()
+        {
+            var tongLenh = await _context.LenhSanXuats.CountAsync();
 
-		}
-		
-		public async Task<BaoCaoSanXuat> Delete(BaoCaoSanXuat input)
-		{
-			var result = _context.BaoCaoSanXuats.Remove(input).Entity;
-			await _context.SaveChangesAsync();
-			return result;
-		}
+            var soChuaBatDau = await _context.LenhSanXuats
+                .CountAsync(x => x.TrangThai == "Ready");
 
-		public async Task<IEnumerable<BaoCaoSanXuat>> GetAll()
-		{
-			return await _context.BaoCaoSanXuats.ToListAsync();
-		}
+            var soHoanThanh = await _context.LenhSanXuats
+                .CountAsync(x => x.TrangThai == "Done");
 
-		public async Task<BaoCaoSanXuat> GetById(int id)
-		{
-			return await _context.BaoCaoSanXuats.FindAsync(id);
-		}
+            var soDangThucHien = await _context.LenhSanXuats
+                .CountAsync(x => x.TrangThai == "Inprogress");
 
-		public async Task<BaoCaoSanXuat> Update(BaoCaoSanXuat input)
-		{
-			var result = _context.BaoCaoSanXuats.Update(input).Entity;
-			
-			await _context.SaveChangesAsync();
-			return result;
-		}
-	}
+            var soTamDung = await _context.LenhSanXuats
+                .CountAsync(x => x.TrangThai == "Pause");
+
+            var soBiKhoa = await _context.LenhSanXuats
+                .CountAsync(x => x.TrangThai == "Block");
+
+            return new BaoCaoTongHopSanXuat
+            {
+                TongLenhSanXuat = tongLenh,
+                SoLenhSanXuatChuaBatDau = soChuaBatDau,
+                SoLenhSanXuatHoanThanh = soHoanThanh,
+                SoLenhSanXuatDangThucHien = soDangThucHien,
+                SoLenhSanXuatTamDung = soTamDung,
+                SoLenhSanXuatBiKhoa = soBiKhoa
+            };
+        }
+
+        public async Task<List<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham()
+        {
+            var result = await (from k in _context.KeHoachSanXuats
+                                join sp in _context.SanPhams on k.MaSanPham equals sp.MaSanPham
+                                group new { k, sp } by k.MaSanPham into grouped
+                                select new BaoCaoSanPhamSanXuat
+                                {
+                                    MaSanPham = grouped.Key,  // MaSanPham của nhóm
+                                    TenSanPham = grouped.Select(g => g.sp.TenSanPham).FirstOrDefault(),  // Truy cập TenSanPham từ bảng SanPham
+                                    SoLuong = grouped.Sum(g => g.k.SoLuong)  // Tính tổng SoLuong
+                                })
+                            .ToListAsync();
+
+            return result;
+        }
+
+
+    }
 }
