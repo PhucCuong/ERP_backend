@@ -26,10 +26,10 @@ namespace ERP_backend.Controllers
         }
 
 
-        [HttpGet("tien-do-san-xuat")]
-        public async Task<ActionResult<BaoCaoTongHopSanXuat>> GetTienDoSanXuat()
+        [HttpPost("tien-do-san-xuat")]
+        public async Task<ActionResult<BaoCaoTongHopSanXuat>> GetTienDoSanXuat([FromBody] FilterTienDoSanXuatDto requestBody)
         {
-            var result = await _BaoCaoSanXuatService.GetTienDoSanXuat();
+            var result = await _BaoCaoSanXuatService.GetTienDoSanXuat(requestBody);
             return Ok(result);
         }
 

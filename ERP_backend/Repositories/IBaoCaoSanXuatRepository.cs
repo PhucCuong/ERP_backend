@@ -6,7 +6,7 @@ namespace ERP_backend.Repositories
 {
 	public interface IBaoCaoSanXuatRepository
 	{
-		public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat();
+		public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat(FilterTienDoSanXuatDto requestBody);
 
 		public Task<List<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham();
 

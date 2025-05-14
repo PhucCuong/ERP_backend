@@ -15,9 +15,9 @@ namespace ERP_backend.Services
 			_BaoCaoSanXuatRepository = BaoCaoSanXuatRepository;
 		}
 
-        public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat()
+        public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat(FilterTienDoSanXuatDto requestBody)
         {
-            var result  = await _BaoCaoSanXuatRepository.GetTienDoSanXuat();
+            var result  = await _BaoCaoSanXuatRepository.GetTienDoSanXuat(requestBody);
 			return result;
         }
 

@@ -54,24 +54,45 @@ namespace ERP_backend.Repositories
             };
         }
 
-        public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat()
+        public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat(FilterTienDoSanXuatDto requestBody)
         {
-            var tongLenh = await _context.LenhSanXuats.CountAsync();
+            var query = _context.LenhSanXuats.AsQueryable();
 
-            var soChuaBatDau = await _context.LenhSanXuats
-                .CountAsync(x => x.TrangThai == "Ready");
+            // Lọc theo MaSanPham nếu khác "All"
+            if (!string.IsNullOrEmpty(requestBody.MaSanPham) && requestBody.MaSanPham != "All")
+            {
+                if (Guid.TryParse(requestBody.MaSanPham, out Guid maSanPhamGuid))
+                {
+                    query = query.Where(nk => nk.MaSanPham == maSanPhamGuid);
+                }
+                else
+                {
+                    throw new ArgumentException("Mã sản phẩm không hợp lệ.");
+                }
+            }
 
-            var soHoanThanh = await _context.LenhSanXuats
-                .CountAsync(x => x.TrangThai == "Done");
+            // Lọc theo ngày nếu có
+            if (requestBody.NgayBatDau.HasValue && requestBody.NgayKetThuc.HasValue)
+            {
+                var ngayBatDau = requestBody.NgayBatDau.Value.Date;
+                var ngayKetThuc = requestBody.NgayKetThuc.Value.Date;
 
-            var soDangThucHien = await _context.LenhSanXuats
-                .CountAsync(x => x.TrangThai == "Inprogress");
+                query = query.Where(nk =>
+                    nk.NgayBatDau.Date >= ngayBatDau &&
+                    nk.NgayKetThuc.Date <= ngayKetThuc
+                );
+            }
 
-            var soTamDung = await _context.LenhSanXuats
-                .CountAsync(x => x.TrangThai == "Pause");
 
-            var soBiKhoa = await _context.LenhSanXuats
-                .CountAsync(x => x.TrangThai == "Block");
+
+
+            var tongLenh = await query.CountAsync();
+
+            var soChuaBatDau = await query.CountAsync(x => x.TrangThai == "Ready");
+            var soHoanThanh = await query.CountAsync(x => x.TrangThai == "Done");
+            var soDangThucHien = await query.CountAsync(x => x.TrangThai == "Inprogress");
+            var soTamDung = await query.CountAsync(x => x.TrangThai == "Pause");
+            var soBiKhoa = await query.CountAsync(x => x.TrangThai == "Block");
 
             return new BaoCaoTongHopSanXuat
             {

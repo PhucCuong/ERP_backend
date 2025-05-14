@@ -5,7 +5,7 @@ namespace ERP_backend.Services
 {
 	public interface IBaoCaoSanXuatService
 	{
-        public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat();
+        public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat(FilterTienDoSanXuatDto requestBody);
 
         public Task<List<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham();
 
