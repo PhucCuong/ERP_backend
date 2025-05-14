@@ -10,6 +10,7 @@ using ERP_backend.Repositories;
 using ERP_backend.Services;
 using ERP_backend.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ERP_backend.Controllers
 {
@@ -39,5 +40,13 @@ namespace ERP_backend.Controllers
             var result = await _BaoCaoSanXuatService.GetTongQuanSoLuongSanPham();
             return Ok(result);
         }
+
+        [HttpPost("filter-chat-luong-san-pham")]
+        public async Task<ActionResult<FilterChatLuongSanPham>> FilterChatLuongSanPham([FromBody] FilterChatLuongSanPhamDto requestBody)
+        {
+            var result = await _BaoCaoSanXuatService.filterChatLuongSanPham(requestBody);
+            return Ok(result);
+        }
+
     }
 }

@@ -1,6 +1,8 @@
-﻿using ERP_backend.Models;
+﻿using ERP_backend.DTOs;
+using ERP_backend.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ERP_backend.Repositories
 {
@@ -12,6 +14,45 @@ namespace ERP_backend.Repositories
 		{
 			_context = context;
 		}
+
+        public async Task<FilterChatLuongSanPham> filterChatLuongSanPham(FilterChatLuongSanPhamDto requestBody)
+        {
+            var query = _context.NhapKhos.AsQueryable();
+
+            // Lọc theo MaSanPham nếu khác "All"
+            if (!string.IsNullOrEmpty(requestBody.MaSanPham) && requestBody.MaSanPham != "All")
+            {
+                if (Guid.TryParse(requestBody.MaSanPham, out Guid maSanPhamGuid))
+                {
+                    query = query.Where(nk => nk.MaSanPham == maSanPhamGuid);
+                }
+                else
+                {
+                    throw new ArgumentException("Mã sản phẩm không hợp lệ.");
+                }
+            }
+
+            // Lọc theo ngày nếu có
+            if (requestBody.NgayBatDau.HasValue && requestBody.NgayKetThuc.HasValue)
+            {
+                var endDateInclusive = requestBody.NgayKetThuc.Value.AddDays(1);
+                query = query.Where(nk => nk.NgayNhap >= requestBody.NgayBatDau.Value &&
+                                          nk.NgayNhap < endDateInclusive);
+            }
+
+            var tongSanPham = await query.CountAsync();
+            var sanPhamChoDuyet = await query.Where(x => x.TrangThai == "Watting").CountAsync();
+            var sanPhamDatYeuCau = await query.Where(x => x.TrangThai == "Passed").CountAsync();
+            var sanPhamKhongDat = await query.Where(x => x.TrangThai == "Failed").CountAsync();
+
+            return new FilterChatLuongSanPham
+            {
+                TongSanPham = tongSanPham,
+                SanPhamChoDuyet = sanPhamChoDuyet,
+                SanPhamDatYeuCau = sanPhamDatYeuCau,
+                SanPhamKhongDatYeuCau = sanPhamKhongDat
+            };
+        }
 
         public async Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat()
         {

@@ -8,5 +8,7 @@ namespace ERP_backend.Services
         public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat();
 
         public Task<List<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham();
+
+        public Task<FilterChatLuongSanPham> filterChatLuongSanPham(FilterChatLuongSanPhamDto requestBody);
     }
 }

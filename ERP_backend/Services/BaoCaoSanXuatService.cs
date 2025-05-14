@@ -26,5 +26,11 @@ namespace ERP_backend.Services
             var result = await _BaoCaoSanXuatRepository.GetTongQuanSoLuongSanPham();
             return result;
         }
+
+        public async Task<FilterChatLuongSanPham> filterChatLuongSanPham(FilterChatLuongSanPhamDto requestBody)
+        {
+            var result = await _BaoCaoSanXuatRepository.filterChatLuongSanPham(requestBody);
+            return result;
+        }
     }
 }

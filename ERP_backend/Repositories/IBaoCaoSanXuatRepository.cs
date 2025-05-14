@@ -1,4 +1,5 @@
-﻿using ERP_backend.Models;
+﻿using ERP_backend.DTOs;
+using ERP_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERP_backend.Repositories
@@ -8,5 +9,7 @@ namespace ERP_backend.Repositories
 		public Task<BaoCaoTongHopSanXuat> GetTienDoSanXuat();
 
 		public Task<List<BaoCaoSanPhamSanXuat>> GetTongQuanSoLuongSanPham();
+
+		public Task<FilterChatLuongSanPham> filterChatLuongSanPham(FilterChatLuongSanPhamDto requestBody);
 	}
 }
